@@ -1,0 +1,67 @@
+[
+  {
+    "id": "1",
+    "image": "https://dodopizza-a.akamaihd.net/static/Img/Products/ddadb2bd7f2d40459acddbe2f51a2389_366x366.webp",
+    "name": "Двойной цыпленок",
+    "prices": [
+      {
+        "doughTypeId": "thin",
+        "sizeId": "26",
+        "price": 546
+      },
+      {
+        "doughTypeId": "thin",
+        "sizeId": "30",
+        "price": 600
+      }
+    ]
+  },
+  {
+    "id": "2",
+    "image": "https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/b750f576-4a83-48e6-a283-5a8efb68c35d.jpg",
+    "name": "Чизбургер-пицца",
+    "prices": [
+      {
+        "doughTypeId": "thin",
+        "sizeId": "26",
+        "price": 546
+      }
+    ]
+  },
+  {
+    "id": "3",
+    "image": "https://dodopizza-a.akamaihd.net/static/Img/Products/cea570842b754c52b786c231c65bd2e2_366x366.webp",
+    "name": "Ветчина и сыр",
+    "prices": [
+      {
+        "doughTypeId": "thin",
+        "sizeId": "26",
+        "price": 546
+      }
+    ]
+  },
+  {
+    "id": "4",
+    "image": "https://dodopizza-a.akamaihd.net/static/Img/Products/d9c609f1422247f2b87b6293eb461ff0_366x366.webp",
+    "name": "Сырная",
+    "prices": [
+      {
+        "doughTypeId": "thin",
+        "sizeId": "26",
+        "price": 546
+      }
+    ]
+  },
+  {
+    "id": "5",
+    "image": "https://dodopizza-a.akamaihd.net/static/Img/Products/27c9bbd0af3a4d1d84a086d9c2f1656d_366x366.webp",
+    "name": "Пепперони фреш",
+    "prices": [
+      {
+        "doughTypeId": "thin",
+        "sizeId": "26",
+        "price": 546
+      }
+    ]
+  }
+]

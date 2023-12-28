@@ -1,95 +1,73 @@
-import Image from 'next/image'
-import styles from './page.module.css'
+'use client';
+
+import { QueryClient, QueryClientProvider } from 'react-query';
+
+import {
+  PizzaCategories,
+  PizzaContextProvider,
+  PizzaSelectBlock,
+  PizzaSorting,
+  usePizzaContext,
+} from '@/entities/pizza';
+import { CartContextProvider, useCartContext } from '@/features/cart/context';
+import { TheHeader } from '@/widgets/the-header';
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
 export default function Home() {
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
+    <QueryClientProvider client={queryClient}>
+      <PizzaContextProvider>
+        <CartContextProvider>
+          <Content />
+        </CartContextProvider>
+      </PizzaContextProvider>
+    </QueryClientProvider>
+  );
+}
+
+function Content() {
+  const { pizzas, isLoading } = usePizzaContext();
+  const {
+    increaseItemInCart,
+    decreaseItemInCart,
+    removeItemFromCard,
+    getCountForItem,
+    itemsInCartFlatCount,
+  } = useCartContext();
+
+  if (isLoading) {
+    return 'Loading...';
+  }
+
+  return (
+    <main>
+      <TheHeader itemsInCartCount={itemsInCartFlatCount} className="px-8" />
+      <div className="flex px-8 pt-8 items-center justify-between">
+        <PizzaCategories />
+        <PizzaSorting />
       </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
+      <h2 className="text-2xl px-8 m-0 mt-12 font-semibold -mb-4">Все питсы</h2>
+      <div className="flex flex-wrap justify-center px-8 py-8">
+        {pizzas.map(pizza => (
+          <PizzaSelectBlock
+            key={pizza.id}
+            pizza={pizza}
+            className="mr-12 last:mr-0 mt-8"
+            count={getCountForItem}
+            onAddClick={increaseItemInCart}
+            onRemoveClick={removeItemFromCard}
+            onDecreaseClick={decreaseItemInCart}
+            onIncreaseClick={increaseItemInCart}
+          />
+        ))}
       </div>
     </main>
-  )
+  );
 }
