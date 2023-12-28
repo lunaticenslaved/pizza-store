@@ -5,14 +5,16 @@
     "name": "Двойной цыпленок",
     "prices": [
       {
-        "doughTypeId": "thin",
         "sizeId": "26",
-        "price": 546
+        "price": 450
       },
       {
-        "doughTypeId": "thin",
         "sizeId": "30",
         "price": 600
+      },
+      {
+        "sizeId": "40",
+        "price": 700
       }
     ]
   },
@@ -22,9 +24,16 @@
     "name": "Чизбургер-пицца",
     "prices": [
       {
-        "doughTypeId": "thin",
         "sizeId": "26",
-        "price": 546
+        "price": 450
+      },
+      {
+        "sizeId": "30",
+        "price": 600
+      },
+      {
+        "sizeId": "40",
+        "price": 700
       }
     ]
   },
@@ -34,9 +43,16 @@
     "name": "Ветчина и сыр",
     "prices": [
       {
-        "doughTypeId": "thin",
         "sizeId": "26",
-        "price": 546
+        "price": 450
+      },
+      {
+        "sizeId": "30",
+        "price": 600
+      },
+      {
+        "sizeId": "40",
+        "price": 700
       }
     ]
   },
@@ -46,9 +62,16 @@
     "name": "Сырная",
     "prices": [
       {
-        "doughTypeId": "thin",
         "sizeId": "26",
-        "price": 546
+        "price": 450
+      },
+      {
+        "sizeId": "30",
+        "price": 600
+      },
+      {
+        "sizeId": "40",
+        "price": 700
       }
     ]
   },
@@ -58,9 +81,16 @@
     "name": "Пепперони фреш",
     "prices": [
       {
-        "doughTypeId": "thin",
         "sizeId": "26",
-        "price": 546
+        "price": 450
+      },
+      {
+        "sizeId": "30",
+        "price": 600
+      },
+      {
+        "sizeId": "40",
+        "price": 700
       }
     ]
   }

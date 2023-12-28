@@ -10,7 +10,6 @@ export interface PizzaDoughType {
 
 export interface PizzaPrice {
   price: number;
-  doughTypeId: string;
   sizeId: string;
 }
 

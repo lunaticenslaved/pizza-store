@@ -14,6 +14,7 @@
     "@heroicons/react": "^2.1.1",
     "@lunaticenslaved/configs": "^0.0.1",
     "classnames": "^2.5.0",
+    "lodash": "^4.17.21",
     "next": "14.0.4",
     "normalize.css": "^8.0.1",
     "react": "^18",
@@ -21,6 +22,7 @@
     "react-query": "^3.39.3"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.202",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

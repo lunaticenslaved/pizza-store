@@ -10,20 +10,21 @@ import {
 import { Pizza } from '@/entities/pizza/types';
 
 interface InCartItem {
+  id: string;
   pizza: Pizza;
   price: number;
   count: number;
-  doughType: string;
-  size: string;
+  doughTypeId: string;
+  sizeId: string;
 }
 
-type InCardItemAction = Pick<InCartItem, 'doughType' | 'pizza' | 'size' | 'price'>;
+type InCardItemAction = Pick<InCartItem, 'doughTypeId' | 'pizza' | 'sizeId'>;
 
 interface ICartContext {
   items: InCartItem[];
   itemsInCartFlatCount: number;
   totalPrice: number;
-  getCountForItem(item: Pick<InCartItem, 'pizza'>): number;
+  getCountForItem(pizza: Pizza): number;
   increaseItemInCart(item: InCardItemAction): void;
   decreaseItemInCart(item: InCardItemAction): void;
   removeItemFromCard(item: InCardItemAction): void;
@@ -35,8 +36,8 @@ function findItem(items: InCartItem[], item: InCardItemAction): [InCartItem | un
   const index = items.findIndex(
     curItem =>
       curItem.pizza.id === item.pizza.id &&
-      curItem.doughType === item.doughType &&
-      curItem.size === item.size,
+      curItem.doughTypeId === item.doughTypeId &&
+      curItem.sizeId === item.sizeId,
   );
 
   if (index === -1) {
@@ -53,13 +54,19 @@ export function CartContextProvider({ children }: PropsWithChildren) {
     setItems(curItems => {
       const [_, existingIndex] = findItem(curItems, item);
 
+      const price = item.pizza.prices.find(({ sizeId }) => sizeId === item.sizeId);
+
+      if (!price) {
+        throw new Error('Price not found');
+      }
+
       if (existingIndex === -1) {
-        return [...curItems, { ...item, count: 1 }];
+        return [...curItems, { ...item, id: Date.now().toString(), count: 1, price: price.price }];
       }
 
       return curItems.map((curItem, curIdx) => {
         if (curIdx === existingIndex) {
-          return { ...curItem, count: curItem.count + 1 };
+          return { ...curItem, count: curItem.count + 1, price: price.price };
         }
 
         return curItem;
@@ -80,12 +87,12 @@ export function CartContextProvider({ children }: PropsWithChildren) {
       curItems.forEach((curItem, curIdx) => {
         if (curIdx !== existingIndex) {
           arr.push(curItem);
-        }
+        } else {
+          const count = curItem.count - 1;
 
-        const count = curItem.count - 1;
-
-        if (count > 0) {
-          arr.push({ ...curItem, count });
+          if (count > 0) {
+            arr.push({ ...curItem, count });
+          }
         }
       });
 
@@ -106,9 +113,9 @@ export function CartContextProvider({ children }: PropsWithChildren) {
   }, []);
 
   const getCountForItem = useCallback(
-    (item: Pick<InCartItem, 'pizza'>) => {
+    (pizza: Pizza) => {
       return items
-        .filter(curItem => curItem.pizza.id === item.pizza.id)
+        .filter(curItem => curItem.pizza.id === pizza.id)
         .reduce((acc, curItem) => acc + curItem.count, 0);
     },
     [items],
@@ -118,7 +125,7 @@ export function CartContextProvider({ children }: PropsWithChildren) {
     return items.reduce(
       (acc, item) => {
         acc.itemsInCartFlatCount += item.count;
-        acc.totalPrice += item.price;
+        acc.totalPrice += item.price * item.count;
 
         return acc;
       },

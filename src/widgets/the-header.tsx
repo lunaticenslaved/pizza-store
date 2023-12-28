@@ -5,9 +5,16 @@ import Image from 'next/image';
 interface TheHeaderProps {
   className?: string;
   itemsInCartCount: number;
+  totalPrice: number;
+  onCartClick(): void;
 }
 
-export function TheHeader({ className, itemsInCartCount }: TheHeaderProps) {
+export function TheHeader({
+  className,
+  itemsInCartCount,
+  totalPrice,
+  onCartClick,
+}: TheHeaderProps) {
   return (
     <div
       className={classNames(
@@ -28,18 +35,18 @@ export function TheHeader({ className, itemsInCartCount }: TheHeaderProps) {
         </div>
       </div>
 
-      <div className="bg-orange-500 flex items-center flex-nowrap rounded-full px-6 py-4 text-white font-medium">
-        <a href="/cart.html" className="flex flex-nowrap">
-          <span>520 ₽</span>
+      <button
+        onClick={onCartClick}
+        className="bg-orange-500 flex items-center flex-nowrap rounded-full px-6 py-4 text-white font-medium">
+        <span>{totalPrice} ₽</span>
 
-          <div className="border-r-2 border-orange-400 opacity-50 mx-4"></div>
+        <div className="border-r-2 border-orange-400 opacity-50 mx-4"></div>
 
-          <div className="flex items-center min-w-12 justify-center">
-            <ShoppingCartIcon className="h-4 w-4 mb-1 mr-2" />
-            <span>{itemsInCartCount}</span>
-          </div>
-        </a>
-      </div>
+        <div className="flex items-center min-w-12 justify-center">
+          <ShoppingCartIcon className="h-4 w-4 mb-1 mr-2" />
+          <span>{itemsInCartCount}</span>
+        </div>
+      </button>
     </div>
   );
 }
