@@ -13,13 +13,13 @@
     "@headlessui/react": "^1.7.17",
     "@heroicons/react": "^2.1.1",
     "@lunaticenslaved/configs": "^0.0.1",
+    "@tanstack/react-query": "^5.15.0",
     "classnames": "^2.5.0",
     "lodash": "^4.17.21",
     "next": "14.0.4",
     "normalize.css": "^8.0.1",
     "react": "^18",
-    "react-dom": "^18",
-    "react-query": "^3.39.3"
+    "react-dom": "^18"
   },
   "devDependencies": {
     "@types/lodash": "^4.14.202",

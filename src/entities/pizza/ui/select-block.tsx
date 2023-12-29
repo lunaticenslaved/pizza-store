@@ -4,10 +4,10 @@ import { useCallback, useMemo } from 'react';
 
 import { PlusIcon, ShoppingCartIcon } from '@heroicons/react/20/solid';
 import classNames from 'classnames';
-import orderBy from 'lodash/orderBy';
 import Image from 'next/image';
 
 import { Pizza } from '../types';
+import { getMinimumPizzaPrice } from '../utils';
 
 interface PizzaSelectBlockProps {
   pizza: Pizza;
@@ -23,16 +23,8 @@ export function PizzaSelectBlock({
   count,
   onAddClick: onAddClickProp,
 }: PizzaSelectBlockProps) {
-  const minPrice = useMemo(() => {
-    const priceObject = orderBy(pizza.prices, price => price.price, 'asc')[0];
-    return priceObject?.price;
-  }, [pizza.prices]);
-
+  const minPrice = useMemo(() => getMinimumPizzaPrice(pizza), [pizza]);
   const onAddClick = useCallback(() => onAddClickProp(pizza), [onAddClickProp, pizza]);
-
-  if (!minPrice) {
-    throw new Error('Pizza min price not found');
-  }
 
   return (
     <div className={classNames('flex flex-col items-center min-w-64', className)}>

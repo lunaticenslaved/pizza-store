@@ -1,6 +1,7 @@
 import { Fragment, useMemo, useRef, useState } from 'react';
 
 import { Dialog, Transition } from '@headlessui/react';
+import { XMarkIcon } from '@heroicons/react/20/solid';
 import classNames from 'classnames';
 import Image from 'next/image';
 
@@ -80,43 +81,48 @@ export function PizzaSelectDialog({ isOpen, onClose, pizza, onAddClick }: PizzaS
                 <div className="flex">
                   <Image src={pizza.image} alt={pizza.name} height="400" width="400" />
                   <div className="min-w-96 flex flex-col">
-                    <Dialog.Title
-                      as="h3"
-                      className="text-base font-semibold leading-6 text-gray-900 mb-4">
-                      Выберите питсу
+                    <Dialog.Title as="div" className="flex justify-between items-center mb-4">
+                      <h3 className="text-lg font-bold leading-6 text-gray-900">Выберите питсу</h3>
+
+                      <button
+                        className="rounded-full transition-all hover:bg-neutral-100 p-2 -mr-2"
+                        onClick={onClose}>
+                        <XMarkIcon className="w-4 h-4" />
+                      </button>
                     </Dialog.Title>
 
                     <div className="flex-1">
-                      <div className="bg-neutral-100 p-2 rounded-lg text-sm w-full ">
-                        <ul className="mb-2 flex">
-                          {doughTypes.map(({ id, title }) => (
-                            <li
-                              key={id}
-                              role="button"
-                              onClick={() => setDoughTypeId(id)}
-                              className={classNames(
-                                'cursor-pointer p-2 rounded-lg text-center mr-2 last:mr-0 transition-all flex-1',
-                                { 'bg-white': doughTypeId === id },
-                              )}>
-                              {title}
-                            </li>
-                          ))}
-                        </ul>
-                        <ul className="flex justify-items-stretch">
-                          {pizzaSizes.map(({ id, title }) => (
-                            <li
-                              key={id}
-                              role="button"
-                              onClick={() => setSizeId(id)}
-                              className={classNames(
-                                'cursor-pointer p-2 rounded-lg text-center mr-2 last:mr-0 transition-all flex-1',
-                                { 'bg-white': id === sizeId },
-                              )}>
-                              {title}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
+                      <h6 className="font-semibold mb-2">Тесто</h6>
+                      <ul className="justify-items-stretch mb-2 flex bg-neutral-100 p-2 rounded-lg text-sm w-ful">
+                        {doughTypes.map(({ id, title }) => (
+                          <li
+                            key={id}
+                            role="button"
+                            onClick={() => setDoughTypeId(id)}
+                            className={classNames(
+                              'cursor-pointer p-2 rounded-lg text-center mr-2 last:mr-0 transition-all flex-1',
+                              { 'bg-white': doughTypeId === id },
+                            )}>
+                            {title}
+                          </li>
+                        ))}
+                      </ul>
+
+                      <h6 className="font-semibold mb-2 mt-4">Размер</h6>
+                      <ul className="justify-items-stretch mb-2 flex bg-neutral-100 p-2 rounded-lg text-sm w-ful">
+                        {pizzaSizes.map(({ id, title }) => (
+                          <li
+                            key={id}
+                            role="button"
+                            onClick={() => setSizeId(id)}
+                            className={classNames(
+                              'cursor-pointer p-2 rounded-lg text-center mr-2 last:mr-0 transition-all flex-1',
+                              { 'bg-white': id === sizeId },
+                            )}>
+                            {title}
+                          </li>
+                        ))}
+                      </ul>
                     </div>
 
                     <button

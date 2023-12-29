@@ -16,7 +16,8 @@
         "sizeId": "40",
         "price": 700
       }
-    ]
+    ],
+    "tags": ["meat"]
   },
   {
     "id": "2",
@@ -35,7 +36,8 @@
         "sizeId": "40",
         "price": 700
       }
-    ]
+    ],
+    "tags": ["meat"]
   },
   {
     "id": "3",
@@ -54,7 +56,8 @@
         "sizeId": "40",
         "price": 700
       }
-    ]
+    ],
+    "tags": ["meat"]
   },
   {
     "id": "4",
@@ -73,7 +76,8 @@
         "sizeId": "40",
         "price": 700
       }
-    ]
+    ],
+    "tags": ["vegetarian"]
   },
   {
     "id": "5",
@@ -92,6 +96,67 @@
         "sizeId": "40",
         "price": 700
       }
-    ]
+    ],
+    "tags": ["meat"]
+  },
+  {
+    "id": "6",
+    "image": "https://dodopizza-a.akamaihd.net/static/Img/Products/02ca2561953b488993878d1f70e359de_366x366.webp",
+    "name": "Чоризо фреш",
+    "prices": [
+      {
+        "sizeId": "26",
+        "price": 450
+      },
+      {
+        "sizeId": "30",
+        "price": 600
+      },
+      {
+        "sizeId": "40",
+        "price": 700
+      }
+    ],
+    "tags": ["meat"]
+  },
+  {
+    "id": "7",
+    "image": "https://dodopizza-a.akamaihd.net/static/Img/Products/f8bcc0d18f5a4817a720a159f0f8c37c_366x366.webp",
+    "name": "Пицца Жюльен",
+    "prices": [
+      {
+        "sizeId": "26",
+        "price": 450
+      },
+      {
+        "sizeId": "30",
+        "price": 600
+      },
+      {
+        "sizeId": "40",
+        "price": 700
+      }
+    ],
+    "tags": ["meat"]
+  },
+  {
+    "id": "8",
+    "image": "https://dodopizza-a.akamaihd.net/static/Img/Products/18dbb12240b041a191c9dc73c9c1f4ef_366x366.webp",
+    "name": "Мясная",
+    "prices": [
+      {
+        "sizeId": "26",
+        "price": 450
+      },
+      {
+        "sizeId": "30",
+        "price": 600
+      },
+      {
+        "sizeId": "40",
+        "price": 700
+      }
+    ],
+    "tags": ["meat"]
   }
 ]
