@@ -9,3 +9,5 @@ export { PizzaContextProvider, usePizzaContext, type PizzaContextProviderProps }
 export type { Pizza, PizzaDoughType, PizzaPrice, PizzaTag } from './types';
 
 export { getMinimumPizzaPrice } from './utils';
+
+export { usePizzaSizes, useDoughTypes, usePizzaStore } from './store';

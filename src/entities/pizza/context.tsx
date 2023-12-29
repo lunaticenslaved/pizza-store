@@ -6,6 +6,7 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { getMinimumPizzaPrice } from '@/entities/pizza';
 import { notReachable } from '@/shared/utils';
 
+import { useDoughTypes, usePizzaSizes } from './store';
 import { Pizza, PizzaDoughType, PizzaSize, PizzaTag, Sorting } from './types';
 
 interface IPizzaContext {
@@ -52,6 +53,15 @@ export function PizzaContextProvider({
   pizzas,
 }: PizzaContextProviderProps) {
   const searchParams = useSearchParams();
+
+  const [_doughTypes, setDoughTypes] = useDoughTypes();
+  const [_sizes, setSizes] = usePizzaSizes();
+
+  useEffect(() => {
+    setDoughTypes(doughTypes);
+    setSizes(sizes);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sizes, doughTypes]);
 
   const [searchQuery, setSearchQuery] = useState(() => {
     return decodeURIComponent(searchParams.get('search') || '');

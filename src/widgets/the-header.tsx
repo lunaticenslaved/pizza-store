@@ -1,12 +1,13 @@
 import { ShoppingCartIcon } from '@heroicons/react/20/solid';
 import classNames from 'classnames';
 import Image from 'next/image';
+import Link from 'next/link';
 
 interface TheHeaderProps {
   className?: string;
   itemsInCartCount: number;
   totalPrice: number;
-  onCartClick(): void;
+  onCartClick?(): void;
 }
 
 export function TheHeader({
@@ -21,7 +22,7 @@ export function TheHeader({
         'py-2 sm:py-4 flex justify-between items-center border-b-2 border-neutral-100 sticky top-0 z-50 bg-white',
         className,
       )}>
-      <div className="flex items-center">
+      <Link href="/" className="flex items-center cursor-pointer">
         <Image
           className="mr-4"
           width="48"
@@ -33,7 +34,7 @@ export function TheHeader({
           <h1 className="m-0 font-bold text-2xl">React Pizza</h1>
           <p className="m-0 truncate hidden sm:block">самая вкусная пицца во вселенной</p>
         </div>
-      </div>
+      </Link>
 
       <button
         onClick={onCartClick}

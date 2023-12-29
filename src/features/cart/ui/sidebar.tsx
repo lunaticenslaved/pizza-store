@@ -6,9 +6,11 @@ import { XMarkIcon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { usePizzaContext } from '@/entities/pizza';
+import { useDoughTypes, usePizzaSizes } from '@/entities/pizza';
 
-import { useCartContext } from '../context';
+import { useCartStore, useTotalPriceSelector } from '../store';
+
+import { EmptyCart } from './empty';
 
 interface CartSidebarProps {
   isOpen: boolean;
@@ -18,9 +20,13 @@ interface CartSidebarProps {
 const paddingClass = 'px-6';
 
 export function CartSidebar({ isOpen, onClose }: CartSidebarProps) {
-  const { items, increaseItemInCart, decreaseItemInCart, removeItemFromCard, totalPrice } =
-    useCartContext();
-  const { doughTypes, sizes } = usePizzaContext();
+  const removeItemFromCart = useCartStore(s => s.removeItemFromCart);
+  const decreaseItemInCart = useCartStore(s => s.decreaseItemInCart);
+  const increaseItemInCart = useCartStore(s => s.increaseItemInCart);
+  const items = useCartStore(s => s.items);
+  const totalPrice = useTotalPriceSelector();
+  const [doughTypes] = useDoughTypes();
+  const [sizes] = usePizzaSizes();
 
   return (
     <Transition.Root show={isOpen} as={Fragment}>
@@ -109,7 +115,7 @@ export function CartSidebar({ isOpen, onClose }: CartSidebarProps) {
                                       </strong>
                                       <button
                                         className="p-2 rounded-full hover:bg-neutral-100"
-                                        onClick={() => removeItemFromCard(item)}>
+                                        onClick={() => removeItemFromCart(item)}>
                                         <XMarkIcon className="h-4 w-4" />
                                       </button>
                                     </div>
@@ -159,18 +165,7 @@ export function CartSidebar({ isOpen, onClose }: CartSidebarProps) {
                         </div>
                       </>
                     ) : (
-                      <div
-                        className={`flex-1 ${paddingClass} flex flex-col justify-center items-center`}>
-                        <Image
-                          src="/images/empty-cart.png"
-                          alt="Empty cart"
-                          height="300"
-                          width="300"
-                        />
-                        <h4 className="font-semibold text-lg mt-8 text-center">
-                          Корзина пуста. Положите в неё что-нибудь вкусненькое
-                        </h4>
-                      </div>
+                      <EmptyCart className={paddingClass} />
                     )}
                   </div>
                 </Dialog.Panel>

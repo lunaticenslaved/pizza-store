@@ -1,3 +1,7 @@
-export default function Page() {
-  return <div>Cart page</div>;
+'use server';
+
+import Content from './content';
+
+export default async function Page() {
+  return <Content />;
 }
