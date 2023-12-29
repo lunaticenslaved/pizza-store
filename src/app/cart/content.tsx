@@ -29,8 +29,8 @@ export default function Content() {
 
   return (
     <Layout>
-      <div className="min-w-[960px] self-center">
-        <div className="flex items-center justify-between mt-16 border-b-2 border-neutral-100 pb-4">
+      <div className="lg:min-w-[960px] self-center px-6">
+        <div className="flex items-center justify-between mt-8 sm:mt-16 border-b-2 border-neutral-100 pb-4">
           <div className="flex items-center">
             <ShoppingCartIcon className="h-8 w-8 mb-1 mr-2" />
             <h2 className="text-xl font-bold">Корзина</h2>
@@ -49,7 +49,7 @@ export default function Content() {
                 const size = sizes.find(({ id }) => id === item.sizeId);
 
                 return (
-                  <li key={item.id} className="flex items-center">
+                  <li key={item.id} className="flex items-center flex-wrap">
                     <Image src={item.pizza.image} alt={item.pizza.name} height="100" width="100" />
                     <div className="ml-4 flex-1">
                       <p className="font-bold text-lg">{item.pizza.name}</p>
@@ -57,30 +57,32 @@ export default function Content() {
                         {doughType?.title}, {size?.title}
                       </p>
                     </div>
-                    <div className="flex items-center ml-8">
+                    <div className="flex items-center justify-between mt-4 ml-8">
+                      <div className="flex items-center">
+                        <button
+                          onClick={() => decreaseItemInCart(item)}
+                          className="text-orange-500 rounded-full border-2 border-orange-500 p-1 hover:bg-orange-50 transition-all">
+                          <MinusIcon className="h-4 w-4" />
+                        </button>
+                        <span className="mx-4 font-bold text-orange-500">{item.count}</span>
+                        <button
+                          onClick={() => increaseItemInCart(item)}
+                          className="text-orange-500 rounded-full border-2 border-orange-500 p-1 hover:bg-orange-50 transition-all">
+                          <PlusIcon className="h-4 w-4" />
+                        </button>
+                      </div>
+                      <p className="mx-8 font-bold text-xl">{item.count * item.price} руб.</p>
                       <button
-                        onClick={() => decreaseItemInCart(item)}
-                        className="text-orange-500 rounded-full border-2 border-orange-500 p-1 hover:bg-orange-50 transition-all">
-                        <MinusIcon className="h-4 w-4" />
-                      </button>
-                      <span className="mx-4 font-bold text-orange-500">{item.count}</span>
-                      <button
-                        onClick={() => increaseItemInCart(item)}
-                        className="text-orange-500 rounded-full border-2 border-orange-500 p-1 hover:bg-orange-50 transition-all">
-                        <PlusIcon className="h-4 w-4" />
+                        onClick={() => removeItemFromCart(item)}
+                        className="text-neutral-300 border-2 border-neutral-300 p-1 rounded-full">
+                        <XMarkIcon className="h-4 w-4" />
                       </button>
                     </div>
-                    <p className="mx-8 font-bold text-xl">{item.count * item.price} руб.</p>
-                    <button
-                      onClick={() => removeItemFromCart(item)}
-                      className="text-neutral-300 border-2 border-neutral-300 p-1 rounded-full">
-                      <XMarkIcon className="h-4 w-4" />
-                    </button>
                   </li>
                 );
               })}
             </ul>
-            <div className="text-xl flex items-center justify-between my-8">
+            <div className="text-xl flex justify-between my-8 flex-col sm:flex-row sm:items-center">
               <p>
                 Всего пицц: <span className="font-bold">{itemsCount}</span>
               </p>
@@ -93,16 +95,16 @@ export default function Content() {
           <EmptyCart className="my-16" />
         )}
 
-        <div className="flex justify-between">
+        <div className="flex justify-between flex-col sm:flex-row">
           <Link
             href="/"
-            className="rounded-full p-4 pl-6 pr-8 flex border-2 border-neutral-300 text-neutral-300 items-center">
+            className="rounded-full p-4 pl-6 pr-8 flex border-2 border-neutral-300 text-neutral-300 items-center mt-4">
             <ChevronLeftIcon className="w-6 h-6 mr-4" />
             Вернуться назад
           </Link>
 
           {itemsCount > 0 && (
-            <button className="rounded-full p-4 flex bg-orange-500 text-white font-semibold px-8 items-center">
+            <button className="rounded-full p-4 flex bg-orange-500 text-white font-semibold px-8 items-center mt-4">
               Оплатить сейчас
             </button>
           )}

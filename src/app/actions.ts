@@ -1,6 +1,12 @@
-import { PizzaContextProviderProps } from '@/entities/pizza';
+import { PizzaDoughType } from '@/entities/pizza';
+import { Pizza, PizzaSize, PizzaTag } from '@/entities/pizza/types';
 
-export type PageData = Pick<PizzaContextProviderProps, 'doughTypes' | 'pizzas' | 'sizes' | 'tags'>;
+export interface PageData {
+  doughTypes: PizzaDoughType[];
+  sizes: PizzaSize[];
+  tags: PizzaTag[];
+  pizzas: Pizza[];
+}
 
 export async function getData(): Promise<PageData> {
   const doughTypes = await import('@/public/data/pizza-dough-types.json').then(
