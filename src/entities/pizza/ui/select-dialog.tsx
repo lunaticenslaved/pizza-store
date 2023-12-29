@@ -55,7 +55,11 @@ export function PizzaSelectDialog({ isOpen, onClose, pizza, onAddClick }: PizzaS
 
   return (
     <Transition.Root show={isOpen} as={Fragment}>
-      <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef} onClose={onClose}>
+      <Dialog
+        as="div"
+        className="relative z-[100]"
+        initialFocus={cancelButtonRef}
+        onClose={onClose}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -68,7 +72,7 @@ export function PizzaSelectDialog({ isOpen, onClose, pizza, onAddClick }: PizzaS
         </Transition.Child>
 
         <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
-          <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+          <div className="flex min-h-full items-end justify-center p-0 text-center sm:items-center sm:p-4">
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"
@@ -77,23 +81,37 @@ export function PizzaSelectDialog({ isOpen, onClose, pizza, onAddClick }: PizzaS
               leave="ease-in duration-200"
               leaveFrom="opacity-100 translate-y-0 sm:scale-100"
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
-              <Dialog.Panel className="relative transform rounded-lg bg-white text-left shadow-xl transition-all p-8 ">
-                <div className="flex">
-                  <Image src={pizza.image} alt={pizza.name} height="400" width="400" />
-                  <div className="min-w-96 flex flex-col">
+              <Dialog.Panel className="relative transform sm:rounded-lg bg-white text-left shadow-xl transition-all p-4 sm:p-8 min-h-full h-full w-full sm:w-auto">
+                <div className="flex flex-col items-center md:flex-row">
+                  <Image
+                    src={pizza.image}
+                    alt={pizza.name}
+                    height="400"
+                    width="400"
+                    className="min-w-72 md:w-full hidden sm:block"
+                  />
+                  <div className="sm:min-w-96 flex flex-col h-full self-stretch sm:self-auto overflow-y-auto">
                     <Dialog.Title as="div" className="flex justify-between items-center mb-4">
                       <h3 className="text-lg font-bold leading-6 text-gray-900">Выберите питсу</h3>
 
                       <button
-                        className="rounded-full transition-all hover:bg-neutral-100 p-2 -mr-2"
+                        className="rounded-full transition-all hover:bg-neutral-100 p-2"
                         onClick={onClose}>
                         <XMarkIcon className="w-4 h-4" />
                       </button>
                     </Dialog.Title>
 
-                    <div className="flex-1">
+                    <div className="flex-1 overflow-y-auto">
+                      <Image
+                        src={pizza.image}
+                        alt={pizza.name}
+                        height="400"
+                        width="400"
+                        className="w-72 md:w-full sm:hidden mx-auto"
+                      />
+
                       <h6 className="font-semibold mb-2">Тесто</h6>
-                      <ul className="justify-items-stretch mb-2 flex bg-neutral-100 p-2 rounded-lg text-sm w-ful">
+                      <ul className="justify-items-stretch mb-2 flex bg-neutral-100 p-2 rounded-lg text-sm w-full flex-col sm:flex-row">
                         {doughTypes.map(({ id, title }) => (
                           <li
                             key={id}
@@ -109,7 +127,7 @@ export function PizzaSelectDialog({ isOpen, onClose, pizza, onAddClick }: PizzaS
                       </ul>
 
                       <h6 className="font-semibold mb-2 mt-4">Размер</h6>
-                      <ul className="justify-items-stretch mb-2 flex bg-neutral-100 p-2 rounded-lg text-sm w-ful">
+                      <ul className="justify-items-stretch mb-2 flex bg-neutral-100 p-2 rounded-lg text-sm w-full flex-col sm:flex-row">
                         {pizzaSizes.map(({ id, title }) => (
                           <li
                             key={id}

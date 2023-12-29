@@ -85,18 +85,7 @@ function Content() {
   );
 
   return (
-    <main className="flex flex-col h-full">
-      {currentPizza && (
-        <PizzaSelectDialog
-          isOpen={!!currentPizza}
-          onClose={closeDialog}
-          pizza={currentPizza}
-          onAddClick={addPizza}
-        />
-      )}
-
-      <CartSidebar isOpen={isCartSidebarOpen} onClose={closeCartSidebar} />
-
+    <div>
       <TheHeader
         totalPrice={totalPrice}
         itemsInCartCount={itemsInCartFlatCount}
@@ -104,34 +93,55 @@ function Content() {
         onCartClick={openCartSidebar}
       />
 
-      <div className="flex px-8 pt-8 items-center justify-between">
-        <PizzaFilter tags={tags} selectedTag={selectedTag} onTagSelect={setSelectedTag} />
-        <PizzaSorting
-          sortings={sortings}
-          selectedSorting={selectedSorting}
-          onSortingChange={setSelectedSorting}
-        />
-      </div>
-
-      {pizzas.length ? (
-        <div className="flex flex-wrap justify-center px-8 py-8">
-          {pizzas.map(pizza => (
-            <PizzaSelectBlock
-              key={pizza.id}
-              pizza={pizza}
-              className="mr-12 last:mr-0 mt-8"
-              count={getCountForItem(pizza)}
-              onAddClick={openDialog}
-              onRemoveClick={() => {}}
+      <main className="flex flex-col h-full items-center relative">
+        <div className="flex flex-col h-full max-w-[1400px] w-full">
+          {currentPizza && (
+            <PizzaSelectDialog
+              isOpen={!!currentPizza}
+              onClose={closeDialog}
+              pizza={currentPizza}
+              onAddClick={addPizza}
             />
-          ))}
+          )}
+
+          <CartSidebar isOpen={isCartSidebarOpen} onClose={closeCartSidebar} />
+
+          <div className="flex px-8 pt-8 items-center justify-between flex-wrap">
+            <PizzaFilter
+              className="overflow-x-auto -mx-8 sm:mx-0"
+              tags={tags}
+              selectedTag={selectedTag}
+              onTagSelect={setSelectedTag}
+            />
+            <PizzaSorting
+              className="my-4"
+              sortings={sortings}
+              selectedSorting={selectedSorting}
+              onSortingChange={setSelectedSorting}
+            />
+          </div>
+
+          {pizzas.length ? (
+            <div className="flex flex-wrap justify-center px-8 py-8">
+              {pizzas.map(pizza => (
+                <PizzaSelectBlock
+                  key={pizza.id}
+                  pizza={pizza}
+                  className="mx-6 mt-8"
+                  count={getCountForItem(pizza)}
+                  onAddClick={openDialog}
+                  onRemoveClick={() => {}}
+                />
+              ))}
+            </div>
+          ) : (
+            <div className="flex flex-col w-100 flex-1 justify-center items-center">
+              <Image src="/images/pizza.png" alt="Pizza" height="400" width="400" />
+              <h6 className="text-lg font-bold">Не найдено ни одной питсы :-(</h6>
+            </div>
+          )}
         </div>
-      ) : (
-        <div className="flex flex-col w-100 flex-1 justify-center items-center">
-          <Image src="/images/pizza.png" alt="Pizza" height="400" width="400" />
-          <h6 className="text-lg font-bold">Не найдено ни одной питсы :-(</h6>
-        </div>
-      )}
-    </main>
+      </main>
+    </div>
   );
 }

@@ -7,14 +7,20 @@ import classNames from 'classnames';
 import { Sorting } from '../types';
 
 interface PizzaSortingProps {
+  className?: string;
   sortings: Sorting[];
   selectedSorting: Sorting;
   onSortingChange(value: Sorting): void;
 }
 
-export function PizzaSorting({ sortings, selectedSorting, onSortingChange }: PizzaSortingProps) {
+export function PizzaSorting({
+  sortings,
+  selectedSorting,
+  onSortingChange,
+  className,
+}: PizzaSortingProps) {
   return (
-    <Menu as="div" className="relative inline-block text-left">
+    <Menu as="div" className={classNames('relative inline-block text-left', className)}>
       {({ open }) => {
         return (
           <>

@@ -24,7 +24,7 @@ export function CartSidebar({ isOpen, onClose }: CartSidebarProps) {
 
   return (
     <Transition.Root show={isOpen} as={Fragment}>
-      <Dialog as="div" className="relative z-10" onClose={onClose}>
+      <Dialog as="div" className="relative z-[100]" onClose={onClose}>
         <Transition.Child
           as={Fragment}
           enter="ease-in-out duration-500"
@@ -38,7 +38,7 @@ export function CartSidebar({ isOpen, onClose }: CartSidebarProps) {
 
         <div className="fixed inset-0 overflow-hidden">
           <div className="absolute inset-0 overflow-hidden">
-            <div className="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10">
+            <div className="pointer-events-none fixed inset-y-0 right-0 flex sm:max-w-full pl-10">
               <Transition.Child
                 as={Fragment}
                 enter="transform transition ease-in-out duration-500 sm:duration-500"
@@ -56,7 +56,7 @@ export function CartSidebar({ isOpen, onClose }: CartSidebarProps) {
                     leave="ease-in-out duration-500"
                     leaveFrom="opacity-100"
                     leaveTo="opacity-0">
-                    <div className="absolute -left-4 top-0 -ml-8 flex pr-2 pt-4 sm:-ml-10 sm:pr-4">
+                    <div className="hidden sm:flex absolute -left-4 top-0 -ml-8 pr-2 pt-4 sm:-ml-10 sm:pr-4">
                       <button
                         type="button"
                         className="relative rounded-full text-gray-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-white p-2"
@@ -65,12 +65,21 @@ export function CartSidebar({ isOpen, onClose }: CartSidebarProps) {
                       </button>
                     </div>
                   </Transition.Child>
-                  <div className="flex h-full flex-col overflow-y-auto bg-white py-6 shadow-xl">
-                    <Dialog.Title
-                      className={`text-xl ${paddingClass} mb-4 font-semibold leading-6 text-gray-900`}>
-                      Корзина
-                    </Dialog.Title>
-                    {totalPrice > 0 ? (
+                  <div className="flex h-full flex-col overflow-y-auto bg-white py-6 shadow-xl justify-between">
+                    <div className="flex items-center justify-between mb-4">
+                      <Dialog.Title
+                        className={`text-xl ${paddingClass} font-semibold leading-6 text-gray-900`}>
+                        Корзина
+                      </Dialog.Title>
+                      <button
+                        type="button"
+                        className="relative rounded-full text-gray-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-white p-2 mr-4"
+                        onClick={onClose}>
+                        <XMarkIcon className="h-6 w-6" aria-hidden="true" />
+                      </button>
+                    </div>
+
+                    {items.length > 0 ? (
                       <>
                         <ul className="flex-1 overflow-y-auto">
                           {items.map(item => {
