@@ -9,6 +9,7 @@ import {
   Pizza,
   PizzaContextProvider,
   PizzaFilter,
+  PizzaSearch,
   PizzaSelectBlock,
   PizzaSelectDialog,
   PizzaSelectDialogProps,
@@ -52,6 +53,8 @@ function Content() {
     sortings,
     selectedSorting,
     setSelectedSorting,
+    searchQuery,
+    setSearchQuery,
   } = usePizzaContext();
   const { getCountForItem, itemsInCartFlatCount, increaseItemInCart, totalPrice } =
     useCartContext();
@@ -113,8 +116,13 @@ function Content() {
               selectedTag={selectedTag}
               onTagSelect={setSelectedTag}
             />
+            <PizzaSearch
+              className="my-4 mt-8 sm:mt-4 w-max sm:w-48"
+              value={searchQuery}
+              onChange={setSearchQuery}
+            />
             <PizzaSorting
-              className="my-4"
+              className="my-2"
               sortings={sortings}
               selectedSorting={selectedSorting}
               onSortingChange={setSelectedSorting}

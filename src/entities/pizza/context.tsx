@@ -1,6 +1,6 @@
-import { PropsWithChildren, createContext, useContext, useMemo, useState } from 'react';
+import { PropsWithChildren, createContext, useContext, useEffect, useMemo, useState } from 'react';
 
-import { orderBy } from 'lodash';
+import { debounce, orderBy } from 'lodash';
 
 import { getMinimumPizzaPrice } from '@/entities/pizza';
 import { notReachable } from '@/shared/utils';
@@ -12,6 +12,10 @@ interface IPizzaContext {
   sizes: PizzaSize[];
   pizzas: Pizza[];
   tags: PizzaTag[];
+
+  // Search
+  searchQuery: string;
+  setSearchQuery(value: string): void;
 
   // Sorting
   sortings: Sorting[];
@@ -46,14 +50,27 @@ export function PizzaContextProvider({
   sizes,
   pizzas,
 }: PizzaContextProviderProps) {
+  const [searchQuery, setSearchQuery] = useState('');
   const [selectedTag, setSelectedTag] = useState<PizzaTag>();
   const [selectedSorting, setSelectedSorting] = useState<Sorting>(sortings[0]);
+  const [debouncedSearchQuery, setDebouncedSearchQuery] = useState('');
+
+  useEffect(() => {
+    const fn = debounce(() => setDebouncedSearchQuery(searchQuery), 150);
+    fn();
+    return fn.cancel;
+  }, [searchQuery]);
 
   const filteredPizzas = useMemo(() => {
-    if (!selectedTag) return pizzas;
+    if (!selectedTag && !debouncedSearchQuery) return pizzas;
 
-    return pizzas.filter(pizza => pizza.tags.some(tagId => tagId === selectedTag.id));
-  }, [pizzas, selectedTag]);
+    return pizzas.filter(
+      pizza =>
+        (!selectedTag || pizza.tags.some(tagId => tagId === selectedTag.id)) &&
+        (!debouncedSearchQuery ||
+          pizza.name.toLowerCase().includes(debouncedSearchQuery.toLowerCase())),
+    );
+  }, [pizzas, debouncedSearchQuery, selectedTag]);
 
   const filteredAndSortedPizzas = useMemo(() => {
     return orderBy(
@@ -77,6 +94,10 @@ export function PizzaContextProvider({
       sizes,
       pizzas: filteredAndSortedPizzas,
 
+      // Search,
+      searchQuery,
+      setSearchQuery,
+
       // Sorting
       sortings,
       selectedSorting,
@@ -87,7 +108,7 @@ export function PizzaContextProvider({
       selectedTag,
       setSelectedTag,
     }),
-    [doughTypes, filteredAndSortedPizzas, selectedSorting, selectedTag, sizes, tags],
+    [doughTypes, filteredAndSortedPizzas, searchQuery, selectedSorting, selectedTag, sizes, tags],
   );
 
   return <Context.Provider value={value}>{children}</Context.Provider>;
