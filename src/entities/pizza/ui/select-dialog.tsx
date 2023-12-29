@@ -5,7 +5,8 @@ import { XMarkIcon } from '@heroicons/react/20/solid';
 import classNames from 'classnames';
 import Image from 'next/image';
 
-import { usePizzaContext } from '../context';
+import { useDoughTypes, usePizzaSizes } from '@/entities/pizza';
+
 import { Pizza, PizzaSize } from '../types';
 
 interface AddPizzaData {
@@ -24,7 +25,8 @@ export interface PizzaSelectDialogProps {
 
 export function PizzaSelectDialog({ isOpen, onClose, pizza, onAddClick }: PizzaSelectDialogProps) {
   const cancelButtonRef = useRef(null);
-  const { doughTypes, sizes } = usePizzaContext();
+  const [doughTypes] = useDoughTypes();
+  const [sizes] = usePizzaSizes();
   const [doughTypeId, setDoughTypeId] = useState(doughTypes[0].id);
 
   const pizzaSizes = useMemo(() => {
