@@ -1,6 +1,7 @@
 import { PropsWithChildren, createContext, useContext, useEffect, useMemo, useState } from 'react';
 
 import { debounce, orderBy } from 'lodash';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 import { getMinimumPizzaPrice } from '@/entities/pizza';
 import { notReachable } from '@/shared/utils';
@@ -50,10 +51,34 @@ export function PizzaContextProvider({
   sizes,
   pizzas,
 }: PizzaContextProviderProps) {
-  const [searchQuery, setSearchQuery] = useState('');
-  const [selectedTag, setSelectedTag] = useState<PizzaTag>();
+  const searchParams = useSearchParams();
+
+  const [searchQuery, setSearchQuery] = useState(() => {
+    return decodeURIComponent(searchParams.get('search') || '');
+  });
+  const [selectedTag, setSelectedTag] = useState<PizzaTag | undefined>(() => {
+    const tagId = decodeURIComponent(searchParams.get('tag') || '');
+    return tagId ? tags.find(({ id }) => tagId === id) : undefined;
+  });
   const [selectedSorting, setSelectedSorting] = useState<Sorting>(sortings[0]);
   const [debouncedSearchQuery, setDebouncedSearchQuery] = useState('');
+
+  const pathname = usePathname();
+  const router = useRouter();
+
+  useEffect(() => {
+    const newSearchParams = new URLSearchParams();
+
+    if (searchQuery) {
+      newSearchParams.set('search', encodeURIComponent(searchQuery));
+    }
+
+    if (selectedTag) {
+      newSearchParams.set('tag', encodeURIComponent(selectedTag.id));
+    }
+
+    router.replace(`${pathname}?${newSearchParams.toString()}`);
+  }, [searchQuery, pathname, router, selectedTag]);
 
   useEffect(() => {
     const fn = debounce(() => setDebouncedSearchQuery(searchQuery), 150);

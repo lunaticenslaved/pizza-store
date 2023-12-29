@@ -88,7 +88,7 @@ function Content() {
   );
 
   return (
-    <div>
+    <div className="flex flex-col h-full relative">
       <TheHeader
         totalPrice={totalPrice}
         itemsInCartCount={itemsInCartFlatCount}
@@ -96,7 +96,7 @@ function Content() {
         onCartClick={openCartSidebar}
       />
 
-      <main className="flex flex-col h-full items-center relative">
+      <main className="flex-1 flex flex-col items-center">
         <div className="flex flex-col h-full max-w-[1400px] w-full">
           {currentPizza && (
             <PizzaSelectDialog

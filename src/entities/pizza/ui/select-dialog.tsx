@@ -81,8 +81,8 @@ export function PizzaSelectDialog({ isOpen, onClose, pizza, onAddClick }: PizzaS
               leave="ease-in duration-200"
               leaveFrom="opacity-100 translate-y-0 sm:scale-100"
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
-              <Dialog.Panel className="relative transform sm:rounded-lg bg-white text-left shadow-xl transition-all p-4 sm:p-8 min-h-full h-full w-full sm:w-auto">
-                <div className="flex flex-col items-center md:flex-row">
+              <Dialog.Panel className="relative transform sm:rounded-lg bg-white text-left shadow-xl transition-all p-4 sm:p-8 h-[100vh] sm:h-auto w-full sm:w-auto">
+                <div className="flex flex-col items-center md:flex-row h-full">
                   <Image
                     src={pizza.image}
                     alt={pizza.name}
@@ -90,7 +90,7 @@ export function PizzaSelectDialog({ isOpen, onClose, pizza, onAddClick }: PizzaS
                     width="400"
                     className="min-w-72 md:w-full hidden sm:block"
                   />
-                  <div className="sm:min-w-96 flex flex-col h-full self-stretch sm:self-auto overflow-y-auto">
+                  <div className="sm:min-w-96 flex flex-col h-full self-stretch overflow-y-auto">
                     <Dialog.Title as="div" className="flex justify-between items-center mb-4">
                       <h3 className="text-lg font-bold leading-6 text-gray-900">Выберите питсу</h3>
 

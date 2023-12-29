@@ -59,7 +59,7 @@ export function CartSidebar({ isOpen, onClose }: CartSidebarProps) {
                     <div className="hidden sm:flex absolute -left-4 top-0 -ml-8 pr-2 pt-4 sm:-ml-10 sm:pr-4">
                       <button
                         type="button"
-                        className="relative rounded-full text-gray-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-white p-2"
+                        className="relative rounded-full text-gray-30 focus:outline-none focus:ring-2 focus:ring-white p-2"
                         onClick={onClose}>
                         <XMarkIcon className="h-6 w-6" aria-hidden="true" />
                       </button>
@@ -73,7 +73,7 @@ export function CartSidebar({ isOpen, onClose }: CartSidebarProps) {
                       </Dialog.Title>
                       <button
                         type="button"
-                        className="relative rounded-full text-gray-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-white p-2 mr-4"
+                        className="block sm:hidden relative rounded-full text-gray-30 focus:outline-none focus:ring-2 focus:ring-white p-2 mr-4"
                         onClick={onClose}>
                         <XMarkIcon className="h-6 w-6" aria-hidden="true" />
                       </button>
