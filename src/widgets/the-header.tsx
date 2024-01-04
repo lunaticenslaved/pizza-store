@@ -3,6 +3,8 @@ import classNames from 'classnames';
 import Image from 'next/image';
 import Link from 'next/link';
 
+import { SignInButton } from '@/features/auth';
+
 interface TheHeaderProps {
   className?: string;
   itemsInCartCount: number;
@@ -36,18 +38,22 @@ export function TheHeader({
         </div>
       </Link>
 
-      <button
-        onClick={onCartClick}
-        className="bg-orange-500 flex items-center flex-nowrap rounded-full px-3 py-2 sm:px-6 sm:py-4 text-white font-medium">
-        <span>{totalPrice} ₽</span>
+      <div className="flex items-center justify-center gap-x-4">
+        <SignInButton />
 
-        <div className="border-r-2 border-orange-400 opacity-50 mx-2 sm:mx-4 hidden sm:block"></div>
+        <button
+          onClick={onCartClick}
+          className="bg-orange-500 flex items-center flex-nowrap rounded-full px-3 py-2 sm:px-6 sm:py-4 text-white font-medium">
+          <span>{totalPrice} ₽</span>
 
-        <div className="items-center min-w-12 justify-center hidden sm:flex">
-          <ShoppingCartIcon className="h-4 w-4 mb-1 mr-2" />
-          <span>{itemsInCartCount}</span>
-        </div>
-      </button>
+          <div className="border-r-2 border-orange-400 opacity-50 mx-2 sm:mx-4 hidden sm:block"></div>
+
+          <div className="items-center min-w-12 justify-center hidden sm:flex">
+            <ShoppingCartIcon className="h-4 w-4 mb-1 mr-2" />
+            <span>{itemsInCartCount}</span>
+          </div>
+        </button>
+      </div>
     </header>
   );
 }
