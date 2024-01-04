@@ -5,6 +5,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import Image from 'next/image';
 
 import {
+  PageData,
   Pizza,
   PizzaFilter,
   PizzaSearch,
@@ -18,8 +19,6 @@ import {
 } from '@/entities/pizza';
 import { useCartStore } from '@/features/cart';
 import { Layout } from '@/widgets/layout';
-
-import { PageData } from './actions';
 
 export default function Providers(props: PageData) {
   return (
@@ -36,7 +35,6 @@ function Content({ pizzas: pizzasProp, tags, doughTypes, sizes }: PageData) {
   useEffect(() => {
     setPizzaSizes(sizes);
     setDoughTypes(doughTypes);
-    console.log('Update');
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

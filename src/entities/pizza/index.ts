@@ -11,3 +11,5 @@ export { getMinimumPizzaPrice } from './utils';
 export { usePizzaSizes, useDoughTypes, usePizzaStore } from './store';
 
 export { useFiltersAndSorting } from './hooks/filters-and-sorting';
+
+export { getData, type PageData } from './actions';

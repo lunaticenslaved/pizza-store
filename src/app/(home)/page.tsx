@@ -1,6 +1,5 @@
-'use server';
+import { getData } from '@/entities/pizza';
 
-import { getData } from './actions';
 import Content from './content';
 
 export default async function Home() {
