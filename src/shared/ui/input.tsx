@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useRef } from 'react';
+import { forwardRef, useRef } from 'react';
 import { RiCloseFill } from 'react-icons/ri';
 
 import { cn } from '@/shared/lib';
@@ -9,7 +9,10 @@ export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> 
   clearable?: boolean;
 }
 
-export function Input({ className, type, prepend, clearable, ...props }: InputProps) {
+export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
+  { className, type, prepend, clearable, ...props },
+  ref,
+) {
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   return (
@@ -25,7 +28,15 @@ export function Input({ className, type, prepend, clearable, ...props }: InputPr
         className={cn(
           'min-w-0 flex-1 outline-offset-0 shrink border-none outline-none px-3 py-1 text-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50',
         )}
-        ref={ref => (inputRef.current = ref)}
+        ref={r => {
+          if (typeof ref === 'function') {
+            ref(r);
+          } else if (ref) {
+            ref.current = r;
+          }
+
+          inputRef.current = r;
+        }}
         {...props}
       />
       {!!clearable && inputRef.current?.value && (
@@ -52,4 +63,4 @@ export function Input({ className, type, prepend, clearable, ...props }: InputPr
       )}
     </div>
   );
-}
+});
