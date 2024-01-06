@@ -14,9 +14,9 @@ export default function HomeLayout({ children }: PropsWithChildren) {
           <CartSidebar />
         </>
       }>
-      <div className="bg-white h-full">
+      <div className="bg-white h-full flex flex-col">
         <TheNavbar />
-        {children}
+        <div className="flex-1">{children}</div>
       </div>
     </TheLayout>
   );

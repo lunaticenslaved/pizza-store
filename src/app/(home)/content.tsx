@@ -89,7 +89,7 @@ function Content({ pizzas: pizzasProp, tags, doughTypes, sizes }: PageData) {
           ))}
         </div>
       ) : (
-        <div className="flex flex-col w-100 flex-1 justify-center items-center">
+        <div className="flex flex-col w-100 h-full justify-center items-center">
           <Image src="/images/pizza.png" alt="Pizza" height="400" width="400" />
           <h6 className="text-lg font-bold mt-6">Не найдено ни одной питсы :-(</h6>
         </div>

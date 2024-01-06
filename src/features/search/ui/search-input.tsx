@@ -19,6 +19,7 @@ export function SearchInput({ className }: ClassNameProp) {
       onChange={e => setQuery(e.target.value)}
       placeholder="Поиск"
       id="price"
+      clearable
     />
   );
 }
