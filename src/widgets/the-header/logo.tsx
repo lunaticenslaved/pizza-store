@@ -13,7 +13,7 @@ export function Logo() {
       />
       <div>
         <h1 className="m-0 font-bold text-2xl">React Pizza</h1>
-        <p className="m-0 truncate hidden sm:block">самая вкусная пицца во вселенной</p>
+        <p className="m-0 truncate hidden sm:block">самая вкусная пицца во вселенной React</p>
       </div>
     </Link>
   );

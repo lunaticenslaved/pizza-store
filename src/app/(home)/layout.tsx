@@ -3,17 +3,21 @@ import { PropsWithChildren } from 'react';
 import { CartSidebar } from '@/features/cart';
 import { TheHeader } from '@/widgets/the-header';
 import { TheLayout } from '@/widgets/the-layout';
+import { TheNavbar } from '@/widgets/the-navbar';
 
 export default function HomeLayout({ children }: PropsWithChildren) {
   return (
     <TheLayout
       header={
         <>
-          <TheHeader withActions className="fixed" />
+          <TheHeader withActions />
           <CartSidebar />
         </>
       }>
-      <div className="bg-white h-full">{children}</div>
+      <div className="bg-white h-full">
+        <TheNavbar />
+        {children}
+      </div>
     </TheLayout>
   );
 }

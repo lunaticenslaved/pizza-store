@@ -2,8 +2,8 @@
 
 import { ShoppingCartIcon } from '@heroicons/react/20/solid';
 
-import { useViewerIsAuthorized } from '@/entities/viewer';
-import { SignInButton } from '@/features/auth';
+import { useCurrentUser } from '@/entities/viewer';
+import { LogoutButton, SignInButton } from '@/features/auth';
 import {
   useCartSidebar,
   useItemsInCartCountSelector,
@@ -16,13 +16,13 @@ import { BaseHeader, BaseHeaderProps } from './base-header';
 export function HeaderWithActions({ className }: Omit<BaseHeaderProps, 'children'>) {
   const totalPrice = useTotalPriceSelector();
   const itemsInCartCount = useItemsInCartCountSelector();
-  const isAuthorized = useViewerIsAuthorized();
   const { openSidebar } = useCartSidebar();
+  const viewer = useCurrentUser();
 
   return (
     <BaseHeader className={className}>
       <div className="flex items-center justify-center gap-x-4">
-        {!isAuthorized && <SignInButton />}
+        {!viewer ? <SignInButton /> : <LogoutButton />}
 
         <Button onClick={openSidebar}>
           <span>{totalPrice} ₽</span>

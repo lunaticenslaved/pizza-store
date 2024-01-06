@@ -7,17 +7,17 @@ import Image from 'next/image';
 import {
   PageData,
   Pizza,
-  PizzaFilter,
-  PizzaSearch,
   PizzaSelectBlock,
   PizzaSelectDialog,
   PizzaSelectDialogProps,
-  PizzaSorting,
   useDoughTypes,
-  useFiltersAndSorting,
   usePizzaSizes,
+  usePizzaTags,
 } from '@/entities/pizza';
 import { useCartStore } from '@/features/cart';
+import { useFilteredItems } from '@/features/filters';
+import { useSearchedItems } from '@/features/search';
+import { useSortedItems } from '@/features/sorting';
 
 export default function Providers(props: PageData) {
   return <Content {...props} />;
@@ -26,24 +26,20 @@ export default function Providers(props: PageData) {
 function Content({ pizzas: pizzasProp, tags, doughTypes, sizes }: PageData) {
   const [_1, setDoughTypes] = useDoughTypes();
   const [_2, setPizzaSizes] = usePizzaSizes();
+  const [_3, setPizzaTags] = usePizzaTags();
 
   useEffect(() => {
     setPizzaSizes(sizes);
     setDoughTypes(doughTypes);
+    setPizzaTags(tags);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const {
-    pizzas,
-    searchQuery,
-    selectedSorting,
-    sortings,
-    selectedTag,
-    setSearchQuery,
-    setSelectedSorting,
-    setSelectedTag,
-  } = useFiltersAndSorting(pizzasProp, tags);
+  const sortedItems = useSortedItems(pizzasProp);
+  const searchedItems = useSearchedItems(sortedItems);
+  const pizzas = useFilteredItems(searchedItems);
+
   const increaseItemInCart = useCartStore(s => s.increaseItemInCart);
   const getCountForItem = useCartStore(s => s.getCountForItem);
   const [currentPizza, setCurrentPizza] = useState<Pizza>();
@@ -78,26 +74,6 @@ function Content({ pizzas: pizzasProp, tags, doughTypes, sizes }: PageData) {
           onAddClick={addPizza}
         />
       )}
-
-      <div className="flex px-8 pt-8 items-center justify-between flex-wrap">
-        <PizzaFilter
-          className="overflow-x-auto -mx-8 sm:mx-0"
-          tags={tags}
-          selectedTag={selectedTag}
-          onTagSelect={setSelectedTag}
-        />
-        <PizzaSearch
-          className="my-4 mt-8 sm:mt-4 w-max sm:w-48"
-          value={searchQuery}
-          onChange={setSearchQuery}
-        />
-        <PizzaSorting
-          className="my-2"
-          sortings={sortings}
-          selectedSorting={selectedSorting}
-          onSortingChange={setSelectedSorting}
-        />
-      </div>
 
       {pizzas.length ? (
         <div className="flex flex-wrap justify-center px-8 py-8">

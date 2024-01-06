@@ -1,1 +1,1 @@
-export { useViewerIsAuthorized, useViewerStore } from './store';
+export { useCurrentUser } from './hooks';

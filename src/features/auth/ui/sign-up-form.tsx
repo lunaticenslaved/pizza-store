@@ -82,7 +82,7 @@ export function SignUpForm() {
               <FormItem>
                 <FormLabel>Пароль</FormLabel>
                 <FormControl>
-                  <Input {...field} disabled={isPending} type="password" />
+                  <Input {...field} disabled={isPending} type="password" autoComplete="false" />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -95,7 +95,7 @@ export function SignUpForm() {
               <FormItem>
                 <FormLabel>Повторите пароль</FormLabel>
                 <FormControl>
-                  <Input {...field} disabled={isPending} type="password" />
+                  <Input {...field} disabled={isPending} type="password" autoComplete="false" />
                 </FormControl>
                 <FormMessage />
               </FormItem>
