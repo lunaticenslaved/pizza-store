@@ -12,7 +12,7 @@ export function BaseHeader({ children, className }: BaseHeaderProps) {
   return (
     <header
       className={classNames(
-        'h-[120px] py-2 sm:py-4 px-8 flex justify-between items-center border-b-2 border-neutral-100 sticky top-0 z-50 bg-white',
+        'h-[80px] px-8 flex justify-between items-center border-b-2 border-neutral-100 sticky top-0 z-50 bg-white',
         className,
       )}>
       <Logo />

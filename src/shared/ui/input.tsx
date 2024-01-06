@@ -23,6 +23,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
       )}>
       {!!prepend && <div className="ml-3 shrink-0">{prepend}</div>}
       <input
+        {...props}
         style={{ boxShadow: 'none' }}
         type={type}
         className={cn(
@@ -37,7 +38,6 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
 
           inputRef.current = r;
         }}
-        {...props}
       />
       {!!clearable && inputRef.current?.value && (
         <span
