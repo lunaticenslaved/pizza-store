@@ -18,6 +18,9 @@ import { useCartStore } from '@/features/cart';
 import { useFilteredItems } from '@/features/filters';
 import { useSearchedItems } from '@/features/search';
 import { useSortedItems } from '@/features/sorting';
+import { NAVBAR_SECTIONS, PIZZA_SECTION, ROLLS_SECTION, SUSHI_SECTION } from '@/widgets/the-navbar';
+
+import { ItemsSection } from './items-section';
 
 export default function Providers(props: PageData) {
   return <Content {...props} />;
@@ -39,6 +42,7 @@ function Content({ pizzas: pizzasProp, tags, doughTypes, sizes }: PageData) {
   const sortedItems = useSortedItems(pizzasProp);
   const searchedItems = useSearchedItems(sortedItems);
   const pizzas = useFilteredItems(searchedItems);
+  const hasItems = !!pizzas.length;
 
   const increaseItemInCart = useCartStore(s => s.increaseItemInCart);
   const getCountForItem = useCartStore(s => s.getCountForItem);
@@ -64,6 +68,45 @@ function Content({ pizzas: pizzasProp, tags, doughTypes, sizes }: PageData) {
     [closeDialog, increaseItemInCart],
   );
 
+  const sections = [
+    {
+      section: PIZZA_SECTION,
+      content: (
+        <>
+          {pizzas.map(pizza => (
+            <PizzaSelectBlock
+              key={pizza.id}
+              pizza={pizza}
+              className="mx-6 mt-8"
+              count={getCountForItem(pizza)}
+              onAddClick={openDialog}
+            />
+          ))}
+        </>
+      ),
+    },
+    {
+      section: SUSHI_SECTION,
+      content: (
+        <div className="flex items-center justify-center">
+          <h6>Здесь пока ничего нет :(</h6>
+        </div>
+      ),
+    },
+    {
+      section: ROLLS_SECTION,
+      content: (
+        <div className="flex items-center justify-center">
+          <h6>Здесь пока ничего нет :(</h6>
+        </div>
+      ),
+    },
+  ].sort(
+    (a, b) =>
+      NAVBAR_SECTIONS.findIndex(s => s.id === a.section.id) -
+      NAVBAR_SECTIONS.findIndex(s => s.id === b.section.id),
+  );
+
   return (
     <>
       {currentPizza && (
@@ -75,24 +118,19 @@ function Content({ pizzas: pizzasProp, tags, doughTypes, sizes }: PageData) {
         />
       )}
 
-      {pizzas.length ? (
-        <div className="flex flex-wrap justify-center px-8 py-8">
-          {pizzas.map(pizza => (
-            <PizzaSelectBlock
-              key={pizza.id}
-              pizza={pizza}
-              className="mx-6 mt-8"
-              count={getCountForItem(pizza)}
-              onAddClick={openDialog}
-              onRemoveClick={() => {}}
-            />
+      {hasItems ? (
+        <>
+          {sections.map(({ section, content }) => (
+            <ItemsSection key={section.id} id={section.id} title={section.title}>
+              {content}
+            </ItemsSection>
           ))}
-        </div>
+        </>
       ) : (
-        <div className="flex flex-col w-100 h-full justify-center items-center">
+        <section className="flex flex-col w-100 h-full justify-center items-center">
           <Image src="/images/pizza.png" alt="Pizza" height="400" width="400" />
           <h6 className="text-lg font-bold mt-6">Не найдено ни одной питсы :-(</h6>
-        </div>
+        </section>
       )}
     </>
   );

@@ -14,7 +14,6 @@ interface PizzaSelectBlockProps {
   className?: string;
   count: number;
   onAddClick(pizza: Pizza): void;
-  onRemoveClick(pizza: Pizza): void;
 }
 
 export function PizzaSelectBlock({

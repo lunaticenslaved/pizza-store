@@ -11,7 +11,7 @@ export function TheLayout({ children, header }: TheLayoutProps) {
     <div className="flex flex-col h-full">
       {header}
 
-      <div className="flex-1 relative flex flex-col">
+      <div className="flex-1 relative flex flex-col overflow-y-auto">
         <Image
           src="/images/pizza-presentation.jpg"
           alt="Pizza"
@@ -20,7 +20,7 @@ export function TheLayout({ children, header }: TheLayoutProps) {
           className="object-cover z-0 flex-1 absolute h-full"
         />
 
-        <main className="flex-1 flex flex-col self-center max-w-[1400px] w-full z-10 h-full">
+        <main className="flex-1 flex flex-col self-center max-w-[1400px] w-full z-10 h-full overflow-y-auto">
           {children}
         </main>
       </div>
