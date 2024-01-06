@@ -1,3 +1,5 @@
+'use client';
+
 import { Fragment } from 'react';
 
 import { Dialog, Transition } from '@headlessui/react';
@@ -8,18 +10,14 @@ import Link from 'next/link';
 
 import { useDoughTypes, usePizzaSizes } from '@/entities/pizza';
 
+import { useCartSidebar } from '../hooks/use-sidebar';
 import { useCartStore, useTotalPriceSelector } from '../store';
 
 import { EmptyCart } from './empty';
 
-interface CartSidebarProps {
-  isOpen: boolean;
-  onClose(): void;
-}
-
 const paddingClass = 'px-6';
 
-export function CartSidebar({ isOpen, onClose }: CartSidebarProps) {
+export function CartSidebar() {
   const removeItemFromCart = useCartStore(s => s.removeItemFromCart);
   const decreaseItemInCart = useCartStore(s => s.decreaseItemInCart);
   const increaseItemInCart = useCartStore(s => s.increaseItemInCart);
@@ -27,10 +25,11 @@ export function CartSidebar({ isOpen, onClose }: CartSidebarProps) {
   const totalPrice = useTotalPriceSelector();
   const [doughTypes] = useDoughTypes();
   const [sizes] = usePizzaSizes();
+  const { isSidebarOpen, closeSidebar } = useCartSidebar();
 
   return (
-    <Transition.Root show={isOpen} as={Fragment}>
-      <Dialog as="div" className="relative z-[100]" onClose={onClose}>
+    <Transition.Root show={isSidebarOpen} as={Fragment}>
+      <Dialog as="div" className="relative z-[100]" onClose={closeSidebar}>
         <Transition.Child
           as={Fragment}
           enter="ease-in-out duration-500"
@@ -66,7 +65,7 @@ export function CartSidebar({ isOpen, onClose }: CartSidebarProps) {
                       <button
                         type="button"
                         className="relative rounded-full text-gray-30 focus:outline-none focus:ring-2 focus:ring-white p-2"
-                        onClick={onClose}>
+                        onClick={closeSidebar}>
                         <XMarkIcon className="h-6 w-6" aria-hidden="true" />
                       </button>
                     </div>
@@ -80,7 +79,7 @@ export function CartSidebar({ isOpen, onClose }: CartSidebarProps) {
                       <button
                         type="button"
                         className="block sm:hidden relative rounded-full text-gray-30 focus:outline-none focus:ring-2 focus:ring-white p-2 mr-4"
-                        onClick={onClose}>
+                        onClick={closeSidebar}>
                         <XMarkIcon className="h-6 w-6" aria-hidden="true" />
                       </button>
                     </div>

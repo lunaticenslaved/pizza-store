@@ -7,3 +7,5 @@ export {
   useTotalPriceSelector,
   useItemsSelector,
 } from './store';
+
+export { useCartSidebar } from './hooks/use-sidebar';

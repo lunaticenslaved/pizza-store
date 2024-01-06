@@ -12,7 +12,6 @@ import {
   useItemsInCartCountSelector,
   useItemsSelector,
 } from '@/features/cart';
-import { Layout } from '@/widgets/layout';
 
 import { useTotalPriceSelector } from '../../features/cart/store';
 
@@ -28,7 +27,7 @@ export default function Content() {
   const decreaseItemInCart = useCartStore(s => s.decreaseItemInCart);
 
   return (
-    <Layout>
+    <>
       <div className="lg:min-w-[960px] self-center px-6">
         <div className="flex items-center justify-between mt-8 sm:mt-16 border-b-2 border-neutral-100 pb-4">
           <div className="flex items-center">
@@ -110,6 +109,6 @@ export default function Content() {
           )}
         </div>
       </div>
-    </Layout>
+    </>
   );
 }

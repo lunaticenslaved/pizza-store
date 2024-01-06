@@ -18,14 +18,9 @@ import {
   usePizzaSizes,
 } from '@/entities/pizza';
 import { useCartStore } from '@/features/cart';
-import { Layout } from '@/widgets/layout';
 
 export default function Providers(props: PageData) {
-  return (
-    <Layout>
-      <Content {...props} />
-    </Layout>
-  );
+  return <Content {...props} />;
 }
 
 function Content({ pizzas: pizzasProp, tags, doughTypes, sizes }: PageData) {
