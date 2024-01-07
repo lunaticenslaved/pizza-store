@@ -6,5 +6,5 @@ export {
   useCartStore,
   useItemsInCartCountSelector,
   useTotalPriceSelector,
-  useItemsSelector,
+  useCartItemsState,
 } from './store';

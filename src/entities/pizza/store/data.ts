@@ -3,6 +3,8 @@ import { create } from 'zustand';
 import { PizzaDoughType } from '@/entities/pizza';
 import { PizzaSize, PizzaTag } from '@/entities/pizza/types';
 
+import { Pizza } from '../types';
+
 interface IPizzaStore {
   doughTypes: PizzaDoughType[];
   setDoughTypes(value: PizzaDoughType[]): void;
@@ -12,6 +14,9 @@ interface IPizzaStore {
 
   tags: PizzaTag[];
   setTags(value: PizzaTag[]): void;
+
+  pizzas: Pizza[];
+  setPizzas(value: Pizza[]): void;
 }
 
 export const usePizzaStore = create<IPizzaStore>(set => ({
@@ -23,6 +28,9 @@ export const usePizzaStore = create<IPizzaStore>(set => ({
 
   tags: [],
   setTags: tags => set({ tags }),
+
+  pizzas: [],
+  setPizzas: pizzas => set({ pizzas }),
 }));
 
 export function useDoughTypes(): [IPizzaStore['doughTypes'], IPizzaStore['setDoughTypes']] {
@@ -41,4 +49,10 @@ export function usePizzaTags(): [IPizzaStore['tags'], IPizzaStore['setTags']] {
   const tags = usePizzaStore(s => s.tags);
   const setTags = usePizzaStore(s => s.setTags);
   return [tags, setTags];
+}
+
+export function usePizzas(): [IPizzaStore['pizzas'], IPizzaStore['setPizzas']] {
+  const pizzas = usePizzaStore(s => s.pizzas);
+  const setPizzas = usePizzaStore(s => s.setPizzas);
+  return [pizzas, setPizzas];
 }

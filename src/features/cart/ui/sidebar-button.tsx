@@ -1,8 +1,12 @@
+'use client';
+
+import { useEffect } from 'react';
 import { RiShoppingCart2Line } from 'react-icons/ri';
 
+import { getItemsFromStorage } from '@/features/cart/utils';
 import { Button } from '@/shared/ui/button';
 
-import { useItemsInCartCountSelector, useTotalPriceSelector } from '../store';
+import { useCartItemsState, useItemsInCartCountSelector, useTotalPriceSelector } from '../store';
 
 interface CartSidebarButtonProps {
   onClick(): void;
@@ -11,6 +15,12 @@ interface CartSidebarButtonProps {
 export function CartSidebarButton({ onClick }: CartSidebarButtonProps) {
   const totalPrice = useTotalPriceSelector();
   const itemsInCartCount = useItemsInCartCountSelector();
+  const [_, setItems] = useCartItemsState();
+
+  useEffect(() => {
+    setItems(getItemsFromStorage());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Button onClick={onClick}>

@@ -16,15 +16,15 @@ import { useDoughTypes, usePizzaSizes } from '@/entities/pizza';
 import {
   EmptyCart,
   GoToCartPaymentButton,
+  useCartItemsState,
   useCartStore,
   useItemsInCartCountSelector,
-  useItemsSelector,
   useTotalPriceSelector,
 } from '@/features/cart';
 import { Button } from '@/shared/ui/button';
 
 export default function Page() {
-  const items = useItemsSelector();
+  const [items] = useCartItemsState();
   const [doughTypes] = useDoughTypes();
   const [sizes] = usePizzaSizes();
   const itemsCount = useItemsInCartCountSelector();

@@ -1,14 +1,14 @@
 import { PizzaDoughType } from '@/entities/pizza';
 import { Pizza, PizzaSize, PizzaTag } from '@/entities/pizza/types';
 
-export interface PageData {
+export interface PizzaData {
   doughTypes: PizzaDoughType[];
   sizes: PizzaSize[];
   tags: PizzaTag[];
   pizzas: Pizza[];
 }
 
-export async function getData(): Promise<PageData> {
+export async function getPizzaData(): Promise<PizzaData> {
   const doughTypes = await import('@/public/data/pizza-dough-types.json').then(
     ({ default: arr }) => arr,
   );

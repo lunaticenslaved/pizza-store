@@ -1,18 +1,15 @@
 'use client';
 
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 
 import Image from 'next/image';
 
 import {
-  PageData,
   Pizza,
+  PizzaData,
   PizzaSelectBlock,
   PizzaSelectDialog,
   PizzaSelectDialogProps,
-  useDoughTypes,
-  usePizzaSizes,
-  usePizzaTags,
 } from '@/entities/pizza';
 import { useCartStore } from '@/features/cart';
 import { useFilteredItems } from '@/features/filters';
@@ -22,23 +19,7 @@ import { NAVBAR_SECTIONS, PIZZA_SECTION, ROLLS_SECTION, SUSHI_SECTION } from '@/
 
 import { ItemsSection } from './items-section';
 
-export default function Providers(props: PageData) {
-  return <Content {...props} />;
-}
-
-function Content({ pizzas: pizzasProp, tags, doughTypes, sizes }: PageData) {
-  const [_1, setDoughTypes] = useDoughTypes();
-  const [_2, setPizzaSizes] = usePizzaSizes();
-  const [_3, setPizzaTags] = usePizzaTags();
-
-  useEffect(() => {
-    setPizzaSizes(sizes);
-    setDoughTypes(doughTypes);
-    setPizzaTags(tags);
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
+export default function Content({ pizzas: pizzasProp }: PizzaData) {
   const sortedItems = useSortedItems(pizzasProp);
   const searchedItems = useSearchedItems(sortedItems);
   const pizzas = useFilteredItems(searchedItems);

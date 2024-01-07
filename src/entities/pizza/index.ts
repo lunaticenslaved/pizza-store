@@ -6,9 +6,9 @@ export type { Pizza, PizzaDoughType, PizzaPrice, PizzaTag } from './types';
 
 export { getMinimumPizzaPrice } from './utils';
 
-export { usePizzaSizes, useDoughTypes, usePizzaStore, usePizzaTags } from './store/data';
+export { usePizzaSizes, useDoughTypes, usePizzaStore, usePizzaTags, usePizzas } from './store/data';
 export { usePizzaFiltersStore } from './store/filters';
 
-export { getData, type PageData } from './actions';
+export { getPizzaData, type PizzaData } from './actions';
 
 export { useFilteredPizza } from './hooks/use-filtered-pizza';

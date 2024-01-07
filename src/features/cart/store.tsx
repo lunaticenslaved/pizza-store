@@ -7,12 +7,14 @@ import { create } from 'zustand';
 import { Pizza } from '@/entities/pizza';
 
 import { InCardItemAction, InCartItem } from './types';
+import { saveItemsInStorage } from './utils';
 
-// TODO: save items in localStorage or sessionStorage. What's the difference?
+// TODO: add saving items for authorized user in database. Summarize items from localStorage and DB when signed-in
 
 interface ICartStore {
   items: InCartItem[];
   clearCart(): void;
+  setItems(items: InCartItem[]): void;
   getCountForItem(pizza: Pizza): number;
   increaseItemInCart(item: InCardItemAction): void;
   decreaseItemInCart(item: InCardItemAction): void;
@@ -36,9 +38,11 @@ function findItem(items: InCartItem[], item: InCardItemAction): [InCartItem | un
 
 export const useCartStore = create<ICartStore>((set, getState) => ({
   items: [],
-  clearCart: () => set({ items: [] }),
+  setItems: items => set(saveItemsInStorage({ items })),
+  clearCart: () => set(saveItemsInStorage({ items: [] })),
   getCountForItem: pizza => {
     const { items } = getState();
+
     return items
       .filter(curItem => curItem.pizza.id === pizza.id)
       .reduce((acc, curItem) => acc + curItem.count, 0);
@@ -48,26 +52,25 @@ export const useCartStore = create<ICartStore>((set, getState) => ({
       const [_, existingIndex] = findItem(items, item);
 
       const price = item.pizza.prices.find(({ sizeId }) => sizeId === item.sizeId);
+      let newItems: InCartItem[] = [];
 
       if (!price) {
         throw new Error('Price not found');
       }
 
       if (existingIndex === -1) {
-        return {
-          items: [...items, { ...item, id: Date.now().toString(), count: 1, price: price.price }],
-        };
-      }
-
-      return {
-        items: items.map((curItem, curIdx) => {
+        newItems = [...items, { ...item, id: Date.now().toString(), count: 1, price: price.price }];
+      } else {
+        newItems = items.map((curItem, curIdx) => {
           if (curIdx === existingIndex) {
             return { ...curItem, count: curItem.count + 1, price: price.price };
           }
 
           return curItem;
-        }),
-      };
+        });
+      }
+
+      return saveItemsInStorage({ items: newItems });
     });
   },
   decreaseItemInCart: item => {
@@ -78,34 +81,31 @@ export const useCartStore = create<ICartStore>((set, getState) => ({
         return { items };
       }
 
-      const arr: InCartItem[] = [];
+      const newItems: InCartItem[] = [];
 
       items.forEach((curItem, curIdx) => {
         if (curIdx !== existingIndex) {
-          arr.push(curItem);
+          newItems.push(curItem);
         } else {
           const count = curItem.count - 1;
 
           if (count > 0) {
-            arr.push({ ...curItem, count });
+            newItems.push({ ...curItem, count });
           }
         }
       });
 
-      return { items: arr };
+      return saveItemsInStorage({ items: newItems });
     });
   },
   removeItemFromCart: item => {
     set(({ items }) => {
       const [_, existingIndex] = findItem(items, item);
 
-      if (existingIndex === -1) {
-        return { items };
-      }
+      const newItems: InCartItem[] =
+        existingIndex === -1 ? items : items.filter((_, index) => index !== existingIndex);
 
-      return {
-        items: items.filter((_, index) => index !== existingIndex),
-      };
+      return saveItemsInStorage({ items: newItems });
     });
   },
 }));
@@ -120,7 +120,8 @@ export function useItemsInCartCountSelector() {
   return useMemo(() => items.reduce((acc, item) => acc + item.count, 0), [items]);
 }
 
-export function useItemsSelector() {
+export function useCartItemsState(): [ICartStore['items'], ICartStore['setItems']] {
   const items = useCartStore(s => s.items);
-  return items;
+  const setItems = useCartStore(s => s.setItems);
+  return [items, setItems];
 }
