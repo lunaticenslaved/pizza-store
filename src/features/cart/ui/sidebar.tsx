@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { RiAddLine, RiCloseFill, RiSubtractLine } from 'react-icons/ri';
 
 import Image from 'next/image';
@@ -9,7 +9,6 @@ import { usePathname } from 'next/navigation';
 import { useDoughTypes, usePizzaSizes } from '@/entities/pizza';
 import { Sidebar } from '@/shared/ui/sidebar';
 
-import { useCartSidebar } from '../hooks/use-sidebar';
 import { useCartStore, useTotalPriceSelector } from '../store';
 
 import { EmptyCart } from './empty';
@@ -26,7 +25,10 @@ export function CartSidebar() {
   const totalPrice = useTotalPriceSelector();
   const [doughTypes] = useDoughTypes();
   const [sizes] = usePizzaSizes();
-  const { openSidebar, closeSidebar, isSidebarOpen } = useCartSidebar();
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  const openSidebar = () => setIsSidebarOpen(true);
+  const closeSidebar = () => setIsSidebarOpen(false);
 
   const pathname = usePathname();
 

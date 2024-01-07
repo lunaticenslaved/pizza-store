@@ -8,7 +8,13 @@ interface EmptyCartProps {
 export function EmptyCart({ className }: EmptyCartProps) {
   return (
     <div className={classNames(`flex-1 flex flex-col justify-center items-center`, className)}>
-      <Image src="/images/empty-cart.png" alt="Empty cart" height="300" width="300" />
+      <Image
+        src="/images/empty-cart.png"
+        alt="Empty cart"
+        height="300"
+        width="300"
+        className="w-auto h-auto"
+      />
       <h4 className="font-semibold text-lg mt-8 text-center">
         Корзина пуста. Положите в неё что-нибудь вкусненькое
       </h4>
