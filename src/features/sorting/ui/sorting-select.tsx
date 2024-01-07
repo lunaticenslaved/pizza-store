@@ -1,9 +1,11 @@
 'use client';
 
+import { RiArrowDownSLine } from 'react-icons/ri';
+
 import { Menu, Transition } from '@headlessui/react';
-import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/20/solid';
 import classNames from 'classnames';
 
+import { cn } from '@/shared/lib';
 import { ClassNameProp } from '@/shared/types';
 
 import { SORTING_ITEMS } from '../constants';
@@ -22,11 +24,13 @@ export function SortingSelect({ className }: ClassNameProp) {
         return (
           <>
             <Menu.Button className="group inline-flex w-full justify-center gap-x-1.5 rounded-md px-3 py-2 text-sm font-semibold text-neutral-900">
-              {open ? (
-                <ChevronUpIcon className="mb-1 -mr-1 h-5 w-5 text-black" aria-hidden="true" />
-              ) : (
-                <ChevronDownIcon className="mb-1 -mr-1 h-5 w-5 text-black" aria-hidden="true" />
-              )}
+              <RiArrowDownSLine
+                className={cn(
+                  'mb-1 -mr-1 h-5 w-5 text-black transition-transform',
+                  open ? 'rotate-180' : '',
+                )}
+                aria-hidden="true"
+              />
               Сортировать{' '}
               <span className="inline-block text-orange-500 transition-all group-hover:border-b-2 border-orange-500 border-dashed">
                 {selectedSorting?.title.toLowerCase()}

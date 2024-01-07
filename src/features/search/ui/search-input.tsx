@@ -1,6 +1,6 @@
 'use client';
 
-import { MagnifyingGlassIcon } from '@heroicons/react/20/solid';
+import { RiSearchLine } from 'react-icons/ri';
 
 import { ClassNameProp } from '@/shared/types';
 import { Input } from '@/shared/ui/input';
@@ -13,7 +13,7 @@ export function SearchInput({ className }: ClassNameProp) {
   return (
     <Input
       className={className}
-      prepend={<MagnifyingGlassIcon className="w-4 h-4" />}
+      prepend={<RiSearchLine className="w-4 h-4" />}
       name="price"
       value={query}
       onChange={e => setQuery(e.target.value)}

@@ -1,8 +1,8 @@
 'use client';
 
 import { useCallback, useMemo } from 'react';
+import { RiAddLine, RiShoppingCartLine } from 'react-icons/ri';
 
-import { PlusIcon, ShoppingCartIcon } from '@heroicons/react/20/solid';
 import classNames from 'classnames';
 import Image from 'next/image';
 
@@ -32,7 +32,7 @@ export function PizzaSelectBlock({
         <h4 className="m-0 my-4 font-bold">{pizza.name}</h4>
         {count > 0 && (
           <span className="flex items-center justify-center ml-2 font-semibold">
-            <ShoppingCartIcon className="h-4 w-4 mr-1" />
+            <RiShoppingCartLine className="h-4 w-4 mr-1" />
             {count}
           </span>
         )}
@@ -44,7 +44,7 @@ export function PizzaSelectBlock({
         <button
           className="flex items-center border-none transition-all bg-orange-500 text-white hover:bg-orange-600 border-2 rounded-full px-4 py-2"
           onClick={onAddClick}>
-          <PlusIcon className="h-5 w-5" />
+          <RiAddLine className="h-5 w-5" />
           <span className="font-semibold">Добавить</span>
         </button>
       </div>

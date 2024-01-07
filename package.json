@@ -11,7 +11,6 @@
   },
   "dependencies": {
     "@headlessui/react": "^1.7.17",
-    "@heroicons/react": "^2.1.1",
     "@hookform/resolvers": "^3.3.4",
     "@lunaticenslaved/configs": "^0.0.1",
     "@radix-ui/react-dialog": "^1.0.5",
@@ -28,7 +27,6 @@
     "dayjs": "^1.11.10",
     "framer-motion": "^10.17.6",
     "lodash": "^4.17.21",
-    "lucide-react": "^0.304.0",
     "next": "14.0.4",
     "next-auth": "^5.0.0-beta.4",
     "normalize.css": "^8.0.1",

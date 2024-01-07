@@ -1,7 +1,14 @@
 'use client';
 
-import { ChevronLeftIcon, MinusIcon, PlusIcon, XMarkIcon } from '@heroicons/react/20/solid';
-import { ShoppingCartIcon, TrashIcon } from '@heroicons/react/24/outline';
+import {
+  RiAddLine,
+  RiArrowLeftSLine,
+  RiCloseFill,
+  RiDeleteBin6Line,
+  RiShoppingCartLine,
+  RiSubtractLine,
+} from 'react-icons/ri';
+
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -34,13 +41,13 @@ export default function Page() {
       <div className="px-12">
         <div className="flex items-center justify-between mt-8 sm:mt-16 border-b-2 border-neutral-100 pb-2">
           <div className="flex items-center">
-            <ShoppingCartIcon className="h-8 w-8 mb-1 mr-2" />
+            <RiShoppingCartLine className="h-8 w-8 mb-1 mr-2" />
             <h2 className="text-xl font-bold">Корзина</h2>
           </div>
 
           {!!notEmptyCart && (
             <Button variant="ghost" onClick={clearCart}>
-              <TrashIcon className="w-4 h-4" />
+              <RiDeleteBin6Line className="w-4 h-4" />
               Очистить корзину
             </Button>
           )}
@@ -66,20 +73,20 @@ export default function Page() {
                         <button
                           onClick={() => decreaseItemInCart(item)}
                           className="text-orange-500 rounded-full border-2 border-orange-500 p-1 hover:bg-orange-50 transition-all">
-                          <MinusIcon className="h-4 w-4" />
+                          <RiSubtractLine className="h-4 w-4" />
                         </button>
                         <span className="mx-4 font-bold text-orange-500">{item.count}</span>
                         <button
                           onClick={() => increaseItemInCart(item)}
                           className="text-orange-500 rounded-full border-2 border-orange-500 p-1 hover:bg-orange-50 transition-all">
-                          <PlusIcon className="h-4 w-4" />
+                          <RiAddLine className="h-4 w-4" />
                         </button>
                       </div>
                       <p className="mx-8 font-bold text-xl">{item.count * item.price} руб.</p>
                       <button
                         onClick={() => removeItemFromCart(item)}
                         className="text-neutral-300 border-2 border-neutral-300 p-1 rounded-full">
-                        <XMarkIcon className="h-4 w-4" />
+                        <RiCloseFill className="h-4 w-4" />
                       </button>
                     </div>
                   </li>
@@ -102,7 +109,7 @@ export default function Page() {
         <div className="flex justify-between flex-col sm:flex-row">
           <Button asChild variant="outline">
             <Link href="/">
-              <ChevronLeftIcon className="w-6 h-6 mr-2" />
+              <RiArrowLeftSLine className="w-6 h-6 mr-2" />
               Вернуться к еде
             </Link>
           </Button>

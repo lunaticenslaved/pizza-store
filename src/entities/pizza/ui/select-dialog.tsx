@@ -1,9 +1,9 @@
 'use client';
 
 import { Fragment, useMemo, useRef, useState } from 'react';
+import { RiCloseFill } from 'react-icons/ri';
 
 import { Dialog, Transition } from '@headlessui/react';
-import { XMarkIcon } from '@heroicons/react/20/solid';
 import classNames from 'classnames';
 import Image from 'next/image';
 
@@ -101,7 +101,7 @@ export function PizzaSelectDialog({ isOpen, onClose, pizza, onAddClick }: PizzaS
                       <button
                         className="rounded-full transition-all hover:bg-neutral-100 p-2"
                         onClick={onClose}>
-                        <XMarkIcon className="w-4 h-4" />
+                        <RiCloseFill className="w-4 h-4" />
                       </button>
                     </Dialog.Title>
 

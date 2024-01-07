@@ -1,7 +1,7 @@
 import { Fragment, PropsWithChildren, useMemo } from 'react';
+import { RiCloseLine } from 'react-icons/ri';
 
 import { Dialog, Transition } from '@headlessui/react';
-import { XMarkIcon } from '@heroicons/react/20/solid';
 
 interface SidebarProps extends PropsWithChildren {
   title: string;
@@ -57,7 +57,7 @@ export function Sidebar({ title, children, onClose, isOpen }: SidebarProps) {
                         type="button"
                         className="relative rounded-full text-gray-30 focus:outline-none focus:ring-2 focus:ring-white p-2"
                         onClick={value.close}>
-                        <XMarkIcon className="h-6 w-6" aria-hidden="true" />
+                        <RiCloseLine className="h-6 w-6" aria-hidden="true" />
                       </button>
                     </div>
                   </Transition.Child>
@@ -70,7 +70,7 @@ export function Sidebar({ title, children, onClose, isOpen }: SidebarProps) {
                         type="button"
                         className="block sm:hidden relative rounded-full text-gray-30 focus:outline-none focus:ring-2 focus:ring-white p-2 mr-4"
                         onClick={value.close}>
-                        <XMarkIcon className="h-6 w-6" aria-hidden="true" />
+                        <RiCloseLine className="h-6 w-6" aria-hidden="true" />
                       </button>
                     </div>
 

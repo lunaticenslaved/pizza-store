@@ -1,9 +1,8 @@
 'use client';
 
 import { useEffect } from 'react';
+import { RiAddLine, RiCloseFill, RiSubtractLine } from 'react-icons/ri';
 
-import { MinusIcon, PlusIcon } from '@heroicons/react/20/solid';
-import { XMarkIcon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 
@@ -68,7 +67,7 @@ export function CartSidebar() {
                             <button
                               className="p-2 rounded-full hover:bg-neutral-100"
                               onClick={() => removeItemFromCart(item)}>
-                              <XMarkIcon className="h-4 w-4" />
+                              <RiCloseFill className="h-4 w-4" />
                             </button>
                           </div>
                           <div className="flex">
@@ -86,13 +85,13 @@ export function CartSidebar() {
                           <button
                             className="p-2 rounded-full hover:bg-neutral-100"
                             onClick={() => decreaseItemInCart(item)}>
-                            <MinusIcon className="h-4 w-4" />
+                            <RiSubtractLine className="h-4 w-4" />
                           </button>
                           <span className="mx-2">{item.count}</span>
                           <button
                             className="p-2 rounded-full hover:bg-neutral-100"
                             onClick={() => increaseItemInCart(item)}>
-                            <PlusIcon className="h-4 w-4" />
+                            <RiAddLine className="h-4 w-4" />
                           </button>
                         </div>
                       </div>
