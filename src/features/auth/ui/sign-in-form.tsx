@@ -4,6 +4,7 @@ import { useState, useTransition } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useSearchParams } from 'next/navigation';
 
 import { Button } from '@/shared/ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/shared/ui/form';
@@ -28,9 +29,11 @@ export function SignInForm() {
   const [isPending, startTransition] = useTransition();
   const [message, setMessage] = useState<Message>();
 
+  const redirectTo = useSearchParams().get('redirectTo');
+
   const onSubmit = (data: Values) => {
     startTransition(() => {
-      signIn(data)
+      signIn(data, redirectTo)
         .then(data => {
           if (data.error) {
             setMessage({

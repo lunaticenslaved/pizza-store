@@ -17,19 +17,6 @@ export const authConfig: NextAuthConfig = {
     signIn: '/sign-in',
   },
   callbacks: {
-    authorized({ auth, request: { nextUrl } }) {
-      // TODO: Replace with real check
-
-      const isLoggedIn = !!auth?.user;
-      const isOnDashboard = nextUrl.pathname.startsWith('/dashboard');
-      if (isOnDashboard) {
-        if (isLoggedIn) return true;
-        return false; // Redirect unauthenticated users to login page
-      } else if (isLoggedIn) {
-        return Response.redirect(new URL('/dashboard', nextUrl));
-      }
-      return true;
-    },
     async session({ session, token }) {
       if (!token.sub) return session;
 

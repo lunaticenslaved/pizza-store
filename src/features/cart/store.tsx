@@ -8,6 +8,8 @@ import { Pizza } from '@/entities/pizza';
 
 import { InCardItemAction, InCartItem } from './types';
 
+// TODO: save items in localStorage or sessionStorage. What's the difference?
+
 interface ICartStore {
   items: InCartItem[];
   clearCart(): void;

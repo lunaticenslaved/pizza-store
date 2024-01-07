@@ -9,14 +9,14 @@ import { SignInSchema } from './zod-schemas';
 
 export type SignInRequest = z.infer<typeof SignInSchema>;
 
-export async function signIn(data: SignInRequest) {
+export async function signIn(data: SignInRequest, redirectTo?: string | null) {
   const { email, password } = data;
 
   try {
     await authSignIn('credentials', {
       email,
       password,
-      redirectTo: '/',
+      redirectTo: redirectTo || '/',
     });
   } catch (error) {
     if (error instanceof AuthError) {

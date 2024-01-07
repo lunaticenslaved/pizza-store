@@ -1,10 +1,22 @@
-import NextAuth from 'next-auth';
+import { auth } from './auth';
+import { isPrivateRoute as isPrivateRouteFn } from './routes';
 
-import { authConfig } from './auth.config';
+export const middleware = auth(request => {
+  const { auth, nextUrl } = request;
 
-export default NextAuth(authConfig).auth;
+  console.log('MIDDLEWARE');
+
+  const isLoggedIn = !!auth?.user;
+
+  const isPrivateRoute = isPrivateRouteFn(nextUrl.pathname);
+
+  if (!isLoggedIn && isPrivateRoute) {
+    return Response.redirect(new URL('/sign-in', nextUrl));
+  }
+
+  return true;
+});
 
 export const config = {
-  // https://nextjs.org/docs/app/building-your-application/routing/middleware#matcher
-  matcher: ['/((?!api|_next/static|_next/image|.*\\.png$).*)'],
+  matcher: ['/((?!.+\\.[\\w]+$|_next).*)', '/', '/(api|trpc)(.*)'],
 };

@@ -10,5 +10,9 @@ export const {
   signOut,
 } = NextAuth({
   ...authConfig,
+  pages: {
+    signIn: '/sign-in',
+    error: '/error',
+  },
   adapter,
 });
