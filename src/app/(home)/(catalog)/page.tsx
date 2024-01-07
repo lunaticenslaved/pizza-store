@@ -1,6 +1,6 @@
 import { getData } from '@/entities/pizza';
 
-import Content from './_components/content';
+import Content from '../_components/content';
 
 // TODO: Add skeleton for pizzas list
 
