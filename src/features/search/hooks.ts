@@ -1,10 +1,9 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
-
-import { debounce } from 'lodash';
+import { useMemo } from 'react';
 
 import { Pizza } from '@/entities/pizza';
+import { useDebouncedValue } from '@/shared/hooks';
 
 import { useSearchStore } from './store';
 
@@ -12,13 +11,7 @@ type Item = Pizza;
 
 export function useSearchedItems(items: Item[]): Item[] {
   const { query } = useSearchStore();
-  const [debouncedQuery, setDebouncedQuery] = useState('');
-
-  useEffect(() => {
-    const fn = debounce(() => setDebouncedQuery(query), 150);
-    fn();
-    return fn.cancel;
-  }, [query]);
+  const debouncedQuery = useDebouncedValue(query, 150);
 
   const searchedItems = useMemo(() => {
     if (!debouncedQuery) return items;

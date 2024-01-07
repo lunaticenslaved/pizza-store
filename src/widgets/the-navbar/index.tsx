@@ -1,4 +1,4 @@
-import { ItemsFilter } from '@/features/filters';
+import { FiltersSidebar } from '@/features/filters';
 import { SearchInput } from '@/features/search';
 import { SortingSelect } from '@/features/sorting';
 import { cn } from '@/shared/lib';
@@ -29,7 +29,7 @@ export function TheNavbar({ className }: ClassNameProp) {
       <div className="flex items-center">
         <SearchInput className="h-10" />
         <SortingSelect />
-        <ItemsFilter />
+        <FiltersSidebar />
       </div>
     </nav>
   );

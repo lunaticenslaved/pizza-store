@@ -1,3 +1,3 @@
-export { ItemsFilter } from './ui/item-filters';
+export { FiltersSidebar } from './ui/sidebar';
 
 export { useFilteredItems } from './hooks';

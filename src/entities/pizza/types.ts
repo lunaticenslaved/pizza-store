@@ -26,11 +26,13 @@ export interface Pizza {
   tags: string[];
 }
 
-export type SortingKey = 'price' | 'alphabet';
+export interface PizzaPriceFilter {
+  sizeId?: string;
+  priceFrom?: number;
+  priceTo?: number;
+}
 
-export interface Sorting {
-  id: string;
-  key: SortingKey;
-  title: string;
-  direction: 'asc' | 'desc';
+export interface PizzaFilters {
+  tag?: PizzaTag;
+  prices: PizzaPriceFilter[];
 }
