@@ -21,7 +21,7 @@ export function useSortedItems(items: Item[]): Item[] {
         if (key === 'price') {
           return getMinimumPizzaPrice(pizza);
         } else if (key === 'alphabet') {
-          return pizza.name;
+          return pizza.title;
         } else {
           notReachable(key);
         }

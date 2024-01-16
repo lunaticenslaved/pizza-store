@@ -17,7 +17,7 @@ export function useSearchedItems(items: Item[]): Item[] {
     if (!debouncedQuery) return items;
 
     return items.filter(
-      pizza => !debouncedQuery || pizza.name.toLowerCase().includes(debouncedQuery.toLowerCase()),
+      pizza => !debouncedQuery || pizza.title.toLowerCase().includes(debouncedQuery.toLowerCase()),
     );
   }, [debouncedQuery, items]);
 

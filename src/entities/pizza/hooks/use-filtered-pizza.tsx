@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 
 import { Pizza, PizzaFilters, PizzaPriceFilter, PizzaTag } from '../types';
 
-const filterByTag = (pizza: Pizza, tag: PizzaTag) => pizza.tags.some(tagId => tagId === tag.id);
+const filterByTag = (pizza: Pizza, tag: PizzaTag) => pizza.tags.some(({ id }) => id === tag.id);
 const filterByPrice = (pizza: Pizza, priceFilters: PizzaPriceFilter[]) => {
   for (const priceFilter of priceFilters) {
     const { sizeId, priceFrom, priceTo } = priceFilter;

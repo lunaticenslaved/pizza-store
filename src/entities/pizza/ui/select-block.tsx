@@ -27,9 +27,15 @@ export function PizzaSelectBlock({
 
   return (
     <div className={classNames('flex flex-col items-center min-w-64', className)}>
-      <Image height="200" width="200" src={pizza.image.link} alt={pizza.name} />
+      <Image
+        height="200"
+        width="200"
+        className="aspect-square object-cover"
+        src={pizza.image.link}
+        alt={pizza.title}
+      />
       <div className="flex justify-center items-center">
-        <h4 className="m-0 my-4 font-bold">{pizza.name}</h4>
+        <h4 className="m-0 my-4 font-bold">{pizza.title}</h4>
         {count > 0 && (
           <span className="flex items-center justify-center ml-2 font-semibold">
             <RiShoppingCartLine className="h-4 w-4 mr-1" />

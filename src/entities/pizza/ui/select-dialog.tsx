@@ -76,7 +76,7 @@ export function PizzaSelectDialog({ isOpen, onClose, pizza, onAddClick }: PizzaS
                 <div className="flex flex-col items-center md:flex-row h-full gap-x-6">
                   <Image
                     src={pizza.image.link}
-                    alt={pizza.name}
+                    alt={pizza.title}
                     height="400"
                     width="400"
                     className="min-w-72 md:w-full hidden sm:block aspect-square object-cover"
@@ -95,7 +95,7 @@ export function PizzaSelectDialog({ isOpen, onClose, pizza, onAddClick }: PizzaS
                     <div className="flex-1 overflow-y-auto">
                       <Image
                         src={pizza.image.link}
-                        alt={pizza.name}
+                        alt={pizza.title}
                         height="400"
                         width="400"
                         className="w-72 md:w-full sm:hidden mx-auto"

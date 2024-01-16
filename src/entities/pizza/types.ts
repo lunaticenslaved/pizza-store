@@ -21,10 +21,9 @@ export interface PizzaPrice {
 export interface Pizza {
   id: string;
   image: {
-    id: string;
     link: string;
   };
-  name: string;
+  title: string;
   prices: Array<{
     id: string;
     title: string;
@@ -38,7 +37,10 @@ export interface Pizza {
     id: string;
     title: string;
   }>;
-  tags: string[];
+  tags: Array<{
+    id: string;
+    title: string;
+  }>;
 }
 
 export interface PizzaPriceFilter {

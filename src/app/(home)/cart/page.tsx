@@ -64,12 +64,12 @@ export default function Page() {
                   <li key={item.id} className="flex items-center flex-wrap">
                     <Image
                       src={item.pizza.image.link}
-                      alt={item.pizza.name}
+                      alt={item.pizza.title}
                       height="100"
                       width="100"
                     />
                     <div className="ml-4 flex-1">
-                      <p className="font-bold text-lg">{item.pizza.name}</p>
+                      <p className="font-bold text-lg">{item.pizza.title}</p>
                       <p>
                         {doughType?.title}, {size?.title}
                       </p>

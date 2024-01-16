@@ -51,29 +51,27 @@ export function CartSidebar() {
                   }
 
                   return (
-                    <li key={item.id} className="bg-neutral-100 py-4 px-6 mb-0.5 last:mb-0">
+                    <li key={item.id} className="bg-neutral-100 py-4 px-4 mb-0.5 last:mb-0">
                       <div className="flex items-center">
                         <Image
                           src={item.pizza.image.link}
-                          alt={item.pizza.name}
+                          alt={item.pizza.title}
                           height="100"
                           width="100"
-                          className="mr-4"
+                          className="mr-4 aspect-square object-cover"
                         />
-                        <div className="flex flex-col w-full">
+                        <div className="w-full self-start flex flex-col">
                           <div className="flex items-center justify-between w-full">
-                            <strong className="font-semibold truncate">{item.pizza.name}</strong>
+                            <strong className="font-semibold truncate">{item.pizza.title}</strong>
                             <button
                               className="p-2 rounded-full hover:bg-neutral-100"
                               onClick={() => removeItemFromCart(item)}>
                               <RiCloseFill className="h-4 w-4" />
                             </button>
                           </div>
-                          <div className="flex">
-                            <div className="flex flex-col">
-                              <span>Тесто - {doughType.title}</span>
-                              <span>Размер - {size.title}</span>
-                            </div>
+                          <div className="flex flex-col">
+                            <span>Тесто - {doughType.title}</span>
+                            <span>Размер - {size.title}</span>
                           </div>
                         </div>
                       </div>
