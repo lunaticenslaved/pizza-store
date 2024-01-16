@@ -9,24 +9,24 @@ const filterByPrice = (pizza: Pizza, priceFilters: PizzaPriceFilter[]) => {
 
     if (!priceFrom && !priceTo) continue;
 
-    const pizzaPrice = pizza.prices.find(price => price.sizeId === sizeId);
+    const pizzaPrice = pizza.prices.find(price => price.size.id === sizeId);
 
     if (!pizzaPrice) continue;
 
     if (priceFrom && priceTo) {
-      if (pizzaPrice.price >= priceFrom && pizzaPrice.price <= priceTo) {
+      if (pizzaPrice.rub >= priceFrom && pizzaPrice.rub <= priceTo) {
         return true;
       }
 
       continue;
     } else if (priceFrom) {
-      if (pizzaPrice.price >= priceFrom) {
+      if (pizzaPrice.rub >= priceFrom) {
         return true;
       }
 
       continue;
     } else if (priceTo) {
-      if (pizzaPrice.price <= priceTo) {
+      if (pizzaPrice.rub <= priceTo) {
         return true;
       }
 

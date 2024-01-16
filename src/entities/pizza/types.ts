@@ -20,9 +20,24 @@ export interface PizzaPrice {
 
 export interface Pizza {
   id: string;
-  image: string;
+  image: {
+    id: string;
+    link: string;
+  };
   name: string;
-  prices: PizzaPrice[];
+  prices: Array<{
+    id: string;
+    title: string;
+    rub: number;
+    size: {
+      id: string;
+      title: string;
+    };
+  }>;
+  doughTypes: Array<{
+    id: string;
+    title: string;
+  }>;
   tags: string[];
 }
 

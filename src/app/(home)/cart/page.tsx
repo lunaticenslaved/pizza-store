@@ -12,7 +12,6 @@ import {
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { useDoughTypes, usePizzaSizes } from '@/entities/pizza';
 import {
   EmptyCart,
   GoToCartPaymentButton,
@@ -25,8 +24,6 @@ import { Button } from '@/shared/ui/button';
 
 export default function Page() {
   const [items] = useCartItemsState();
-  const [doughTypes] = useDoughTypes();
-  const [sizes] = usePizzaSizes();
   const itemsCount = useItemsInCartCountSelector();
   const totalPrice = useTotalPriceSelector();
   const clearCart = useCartStore(s => s.clearCart);
@@ -56,12 +53,21 @@ export default function Page() {
           <>
             <ul className="my-12">
               {items.map(item => {
-                const doughType = doughTypes.find(({ id }) => id === item.doughTypeId);
-                const size = sizes.find(({ id }) => id === item.sizeId);
+                const doughType = item.pizza.doughTypes.find(({ id }) => id === item.doughTypeId);
+                const size = item.pizza.prices.find(({ size }) => size.id === item.sizeId)?.size;
+
+                if (!size || !doughType) {
+                  throw new Error('Item not valid');
+                }
 
                 return (
                   <li key={item.id} className="flex items-center flex-wrap">
-                    <Image src={item.pizza.image} alt={item.pizza.name} height="100" width="100" />
+                    <Image
+                      src={item.pizza.image.link}
+                      alt={item.pizza.name}
+                      height="100"
+                      width="100"
+                    />
                     <div className="ml-4 flex-1">
                       <p className="font-bold text-lg">{item.pizza.name}</p>
                       <p>

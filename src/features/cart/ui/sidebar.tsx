@@ -6,7 +6,6 @@ import { RiAddLine, RiCloseFill, RiSubtractLine } from 'react-icons/ri';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 
-import { useDoughTypes, usePizzaSizes } from '@/entities/pizza';
 import { Sidebar } from '@/shared/ui/sidebar';
 
 import { useCartStore, useTotalPriceSelector } from '../store';
@@ -23,8 +22,6 @@ export function CartSidebar() {
   const increaseItemInCart = useCartStore(s => s.increaseItemInCart);
   const items = useCartStore(s => s.items);
   const totalPrice = useTotalPriceSelector();
-  const [doughTypes] = useDoughTypes();
-  const [sizes] = usePizzaSizes();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const openSidebar = () => setIsSidebarOpen(true);
@@ -46,8 +43,8 @@ export function CartSidebar() {
             <>
               <ul className="flex-1 overflow-y-auto">
                 {items.map(item => {
-                  const doughType = doughTypes.find(({ id }) => item.doughTypeId === id);
-                  const size = sizes.find(({ id }) => item.sizeId === id);
+                  const doughType = item.pizza.doughTypes.find(dt => dt.id === item.doughTypeId);
+                  const size = item.pizza.prices.find(p => p.size.id === item.sizeId)?.size;
 
                   if (!doughType || !size) {
                     throw new Error('Incorrect item!');
@@ -57,7 +54,7 @@ export function CartSidebar() {
                     <li key={item.id} className="bg-neutral-100 py-4 px-6 mb-0.5 last:mb-0">
                       <div className="flex items-center">
                         <Image
-                          src={item.pizza.image}
+                          src={item.pizza.image.link}
                           alt={item.pizza.name}
                           height="100"
                           width="100"

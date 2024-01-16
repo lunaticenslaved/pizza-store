@@ -7,9 +7,9 @@ import { Dialog, Transition } from '@headlessui/react';
 import classNames from 'classnames';
 import Image from 'next/image';
 
-import { useDoughTypes, usePizzaSizes } from '@/entities/pizza';
+import { Button } from '@/shared/ui/button';
 
-import { Pizza, PizzaSize } from '../types';
+import { Pizza } from '../types';
 
 interface AddPizzaData {
   pizza: Pizza;
@@ -27,35 +27,22 @@ export interface PizzaSelectDialogProps {
 
 export function PizzaSelectDialog({ isOpen, onClose, pizza, onAddClick }: PizzaSelectDialogProps) {
   const cancelButtonRef = useRef(null);
-  const [doughTypes] = useDoughTypes();
-  const [sizes] = usePizzaSizes();
+
+  const { sizes, doughTypes } = useMemo(
+    () => ({
+      sizes: pizza.prices.map(({ size }) => size),
+      doughTypes: pizza.doughTypes,
+    }),
+    [pizza.doughTypes, pizza.prices],
+  );
+
   const [doughTypeId, setDoughTypeId] = useState(doughTypes[0].id);
+  const [sizeId, setSizeId] = useState(sizes[0].id);
 
-  const pizzaSizes = useMemo(() => {
-    const arr: Array<PizzaSize & { price: number }> = [];
-
-    for (const pizzaPrice of pizza.prices) {
-      const size = sizes.find(({ id }) => pizzaPrice.sizeId === id);
-
-      if (!size) continue;
-
-      arr.push({ ...size, price: pizzaPrice.price });
-    }
-
-    return arr;
-  }, [pizza.prices, sizes]);
-
-  const [sizeId, setSizeId] = useState(pizzaSizes[0].id);
-
-  const price = useMemo(() => {
-    const obj = pizzaSizes.find(({ id }) => sizeId === id);
-
-    if (!obj) {
-      throw new Error('Price not found');
-    }
-
-    return obj.price;
-  }, [pizzaSizes, sizeId]);
+  const price = useMemo(
+    () => pizza.prices.find(({ size }) => size.id === sizeId)?.rub || 0,
+    [pizza.prices, sizeId],
+  );
 
   return (
     <Transition.Root show={isOpen} as={Fragment}>
@@ -86,13 +73,13 @@ export function PizzaSelectDialog({ isOpen, onClose, pizza, onAddClick }: PizzaS
               leaveFrom="opacity-100 translate-y-0 sm:scale-100"
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
               <Dialog.Panel className="relative transform sm:rounded-lg bg-white text-left shadow-xl transition-all p-4 sm:p-8 h-[100vh] sm:h-auto w-full sm:w-auto">
-                <div className="flex flex-col items-center md:flex-row h-full">
+                <div className="flex flex-col items-center md:flex-row h-full gap-x-6">
                   <Image
-                    src={pizza.image}
+                    src={pizza.image.link}
                     alt={pizza.name}
                     height="400"
                     width="400"
-                    className="min-w-72 md:w-full hidden sm:block"
+                    className="min-w-72 md:w-full hidden sm:block aspect-square object-cover"
                   />
                   <div className="sm:min-w-96 flex flex-col h-full self-stretch overflow-y-auto">
                     <Dialog.Title as="div" className="flex justify-between items-center mb-4">
@@ -107,7 +94,7 @@ export function PizzaSelectDialog({ isOpen, onClose, pizza, onAddClick }: PizzaS
 
                     <div className="flex-1 overflow-y-auto">
                       <Image
-                        src={pizza.image}
+                        src={pizza.image.link}
                         alt={pizza.name}
                         height="400"
                         width="400"
@@ -132,7 +119,7 @@ export function PizzaSelectDialog({ isOpen, onClose, pizza, onAddClick }: PizzaS
 
                       <h6 className="font-semibold mb-2 mt-4">Размер</h6>
                       <ul className="justify-items-stretch mb-2 flex bg-neutral-100 p-2 rounded-lg text-sm w-full flex-col sm:flex-row">
-                        {pizzaSizes.map(({ id, title }) => (
+                        {sizes.map(({ id, title }) => (
                           <li
                             key={id}
                             role="button"
@@ -147,11 +134,9 @@ export function PizzaSelectDialog({ isOpen, onClose, pizza, onAddClick }: PizzaS
                       </ul>
                     </div>
 
-                    <button
-                      className="text-center w-full p-4 rounded-full bg-orange-500 font-semibold text-white mt-4"
-                      onClick={() => onAddClick({ pizza, price, sizeId, doughTypeId })}>
+                    <Button onClick={() => onAddClick({ pizza, price, sizeId, doughTypeId })}>
                       В корзину за {price} руб.
-                    </button>
+                    </Button>
                   </div>
                 </div>
               </Dialog.Panel>

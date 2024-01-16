@@ -1,5 +1,6 @@
 import { PizzaDoughType } from '@/entities/pizza';
 import { Pizza, PizzaSize, PizzaTag } from '@/entities/pizza/types';
+import { ADMIN_API } from '@/shared/constants';
 
 export interface PizzaData {
   doughTypes: PizzaDoughType[];
@@ -13,8 +14,9 @@ export async function getPizzaData(): Promise<PizzaData> {
     ({ default: arr }) => arr,
   );
   const sizes = await import('@/public/data/pizza-sizes.json').then(({ default: arr }) => arr);
-  const pizzas = await import('@/public/data/pizzas.json').then(({ default: arr }) => arr);
   const tags = await import('@/public/data/pizza-tags.json').then(({ default: arr }) => arr);
+
+  const pizzas = await getPizzaList();
 
   return {
     pizzas,
@@ -22,4 +24,9 @@ export async function getPizzaData(): Promise<PizzaData> {
     sizes,
     tags,
   };
+}
+
+export async function getPizzaList(): Promise<Pizza[]> {
+  const response = await fetch(`${ADMIN_API}/pizzas`);
+  return response.json();
 }

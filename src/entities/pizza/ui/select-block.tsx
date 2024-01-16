@@ -27,7 +27,7 @@ export function PizzaSelectBlock({
 
   return (
     <div className={classNames('flex flex-col items-center min-w-64', className)}>
-      <Image height="200" width="200" src={pizza.image} alt={pizza.name} />
+      <Image height="200" width="200" src={pizza.image.link} alt={pizza.name} />
       <div className="flex justify-center items-center">
         <h4 className="m-0 my-4 font-bold">{pizza.name}</h4>
         {count > 0 && (

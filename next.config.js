@@ -7,6 +7,10 @@ const nextConfig = {
         hostname: 'dodopizza-a.akamaihd.net',
         port: '',
       },
+      {
+        protocol: 'https',
+        hostname: 'storage.yandexcloud.net',
+      },
     ],
   },
 };

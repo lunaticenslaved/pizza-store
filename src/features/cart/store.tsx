@@ -51,7 +51,7 @@ export const useCartStore = create<ICartStore>((set, getState) => ({
     set(({ items }) => {
       const [_, existingIndex] = findItem(items, item);
 
-      const price = item.pizza.prices.find(({ sizeId }) => sizeId === item.sizeId);
+      const price = item.pizza.prices.find(({ size }) => size.id === item.sizeId);
       let newItems: InCartItem[] = [];
 
       if (!price) {
@@ -59,11 +59,11 @@ export const useCartStore = create<ICartStore>((set, getState) => ({
       }
 
       if (existingIndex === -1) {
-        newItems = [...items, { ...item, id: Date.now().toString(), count: 1, price: price.price }];
+        newItems = [...items, { ...item, id: Date.now().toString(), count: 1, price: price.rub }];
       } else {
         newItems = items.map((curItem, curIdx) => {
           if (curIdx === existingIndex) {
-            return { ...curItem, count: curItem.count + 1, price: price.price };
+            return { ...curItem, count: curItem.count + 1, price: price.rub };
           }
 
           return curItem;
