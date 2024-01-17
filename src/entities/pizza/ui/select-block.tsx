@@ -6,6 +6,8 @@ import { RiAddLine, RiShoppingCartLine } from 'react-icons/ri';
 import classNames from 'classnames';
 import Image from 'next/image';
 
+import { Button } from '@/shared/ui/button';
+
 import { Pizza } from '../types';
 import { getMinimumPizzaPrice } from '../utils';
 
@@ -47,12 +49,10 @@ export function PizzaSelectBlock({
       <div className="flex justify-between items-center w-full mb-4 min-h-12">
         <strong className="font-bold text-xl">от {minPrice} ₽</strong>
 
-        <button
-          className="flex items-center border-none transition-all bg-orange-500 text-white hover:bg-orange-600 border-2 rounded-full px-4 py-2"
-          onClick={onAddClick}>
+        <Button onClick={onAddClick} size="sm">
           <RiAddLine className="h-5 w-5" />
           <span className="font-semibold">Добавить</span>
-        </button>
+        </Button>
       </div>
     </div>
   );

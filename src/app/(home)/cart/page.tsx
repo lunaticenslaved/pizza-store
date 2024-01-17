@@ -76,24 +76,18 @@ export default function Page() {
                     </div>
                     <div className="flex items-center justify-between mt-4 ml-8">
                       <div className="flex items-center">
-                        <button
-                          onClick={() => decreaseItemInCart(item)}
-                          className="text-orange-500 rounded-full border-2 border-orange-500 p-1 hover:bg-orange-50 transition-all">
+                        <Button size="sm" variant="ghost" onClick={() => decreaseItemInCart(item)}>
                           <RiSubtractLine className="h-4 w-4" />
-                        </button>
-                        <span className="mx-4 font-bold text-orange-500">{item.count}</span>
-                        <button
-                          onClick={() => increaseItemInCart(item)}
-                          className="text-orange-500 rounded-full border-2 border-orange-500 p-1 hover:bg-orange-50 transition-all">
+                        </Button>
+                        <span className="mx-4 font-bold">{item.count}</span>
+                        <Button onClick={() => increaseItemInCart(item)} variant="ghost" size="sm">
                           <RiAddLine className="h-4 w-4" />
-                        </button>
+                        </Button>
                       </div>
                       <p className="mx-8 font-bold text-xl">{item.count * item.price} руб.</p>
-                      <button
-                        onClick={() => removeItemFromCart(item)}
-                        className="text-neutral-300 border-2 border-neutral-300 p-1 rounded-full">
+                      <Button variant="outline" onClick={() => removeItemFromCart(item)}>
                         <RiCloseFill className="h-4 w-4" />
-                      </button>
+                      </Button>
                     </div>
                   </li>
                 );
